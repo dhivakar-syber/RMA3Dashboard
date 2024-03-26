@@ -1,0 +1,63 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.PartBuckets
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model PartBucketViewModalDetail
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.PartBuckets;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/PartBuckets/PartBucketViewModal.js" asp-append-version="true"></script>
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(@L("RMBuckets")))
+
+<div class=" PartBucketContainer d-flex flex-column flex-column-fluid" id="kt_content">
+
+    <input type="hidden" id="BuyerFilterId" value="@Model.BuyerId" />
+    <input type="hidden" id="SupplierFilterId" value="@Model.SupplierId" />
+    <input type="hidden" id="PartNoFilterId" value="@Model.PartNo" />
+    <input type="hidden" id="RMFilterId" value="@Model.RawMaterial" />
+    <input type="hidden" id="PriceFilter" value="@Model.Price" />
+    <input type="hidden" id="IsCurrentPriceFilter" value="@(Model.IsCurrentPrice ? 1 : 0)" />
+<div class="@(await GetContainerClass()) card card-custom h-100">
+        <div class="card-header align-items-center border-0 mt-4">
+            <h3 class="card-title align-items-start flex-column">
+                @*<span class="font-weight-bolder text-dark">@Model.RMGroup</span>*@
+                <small><i class=" p-0 m-0 fa fa-user"></i> Part Number : <span class=" text-dark" id="partno">@Model.PartNo</span> <i class=" p-0 m-0 fa fa-user"></i> Raw Material : <span class=" text-dark" id="rawmaterial">@Model.RawMaterial</span></small>
+            </h3>
+        </div>
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div id="PartBucketTable" class="table-responsive align-items-center">
+                    <table class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap dtfc-has-left stripe">                        
+                            <thead>
+                                <tr>
+
+                                    @if (Model.IsCurrentPrice)
+                                    {
+                                        <th>@L("CurrentPrice")</th>
+                                    }
+                                    @if (!Model.IsCurrentPrice)
+                                    {
+                                        <th>@L("RevisedPrice")</th>
+                                    }
+
+                                    <th>@L("BasePrice")</th>
+
+                                    @foreach (var process in Model.RMBuckets)
+                                    {
+                                        <th>@process.Buckets</th>
+                                    }
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+﻿@using SyberGate.RMACT.Masters;
+					
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.BaseRMRates
+@model CreateOrEditBaseRMRateModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditBaseRMRate")) : L("CreateNewBaseRMRate")))
+
+<div class="modal-body">
+        <div id="BaseRMRateInformationsTab">
+            <form name="BaseRMRateInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode && !Model.IsRevision)
+                {
+                    <input type="hidden" name="id" value="@Model.BaseRMRate.Id" />
+                }
+
+
+                <div class="form-group m-form__group">
+                    <label for="RMGroupName">@L("RMGroup")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="RMGroupName" name="rmGroupName" value="@Model.RMGroupName" type="text" disabled>
+                        @if (!Model.IsRevision)
+                        {
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" id="OpenRMGroupLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            </div>
+
+                            <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" id="ClearRMGroupNameButton"><i class="fa fa-times"></i></button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="BaseRMRate_RMGroupId" value="@Model.BaseRMRate.RMGroupId" type="text" name="rmGroupId" hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="BaseRMRate_RMGroupId" value="" type="text" name="rmGroupId" hidden />
+                }
+
+                <div class="form-group m-form__group">
+                    <label for="BuyerName">@L("Buyer")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="BuyerName" name="buyerName" value="@Model.BuyerName" type="text" disabled>
+
+                        @if (!Model.IsRevision)
+                        {
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" id="OpenBuyerLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            </div>
+                            <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" id="ClearBuyerNameButton"><i class="fa fa-times"></i></button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="BaseRMRate_BuyerId" value="@Model.BaseRMRate.BuyerId" type="text" name="buyerId" hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="BaseRMRate_BuyerId" value="" type="text" name="buyerId" hidden />
+                }
+
+
+                <div class="form-group m-form__group">
+                    <label for="SupplierName">@L("Supplier")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="SupplierName" name="supplierName" value="@Model.SupplierName" type="text" disabled>
+                        @if (!Model.IsRevision)
+                        {
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" id="OpenSupplierLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            </div>
+                            <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" id="ClearSupplierNameButton"><i class="fa fa-times"></i></button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="BaseRMRate_SupplierId" value="@Model.BaseRMRate.SupplierId" type="text" name="supplierId" hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="BaseRMRate_SupplierId" value="" type="text" name="supplierId" hidden />
+                }
+
+
+                <div class="form-group">
+                    <label for="unitOfMeasurementId">@L("UnitOfMeasurement")</label>
+                    @Html.DropDownList("unitOfMeasurementId", new SelectList(Model.BaseRMRateUnitOfMeasurementList, "Id", "DisplayName", (Model.IsEditMode ? Model.BaseRMRate.UnitOfMeasurementId.ToString() : "")), @L("SelectAUnitOfMeasurement"), new { @class = "form-control" })
+                </div>
+
+               @* <div class="form-group">
+                    <label for="yearId">@L("Year")</label>
+                    @Html.DropDownList("yearId", new SelectList(Model.BaseRMRateYearList, "Id", "DisplayName", (Model.IsEditMode ? Model.BaseRMRate.YearId.ToString() : "")), @L("SelectAYear"), new { @class = "form-control" })
+                </div>*@
+
+            <label for="Date">@L("Date")</label>
+            <div id="SettledDate" class="form-group input-group">
+                <input datePicker type="datetime" value="@Model.BaseRMRate.SettledDate" name="SettledDate" id="date-time-filter" class="form-control date-picker" >
+                <span class="input-group-append">
+                    <button class="btn btn-primary btn-datetime-picker" type="button" id="btnDateFilterOpen">
+                        <i class="fa fa-calendar-day p-0" style="color:white;" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+
+                @*@{
+                    var selectListMonth = Html.GetEnumSelectList(typeof(Months));
+                    foreach (var selectOption in selectListMonth) { selectOption.Text = L("Enum_Months_" + selectOption.Value); }
+                }
+                <div class="form-group m-form__group">
+                    <label for="BaseRMRate_Month">@L("Month")</label>
+                    <select class="form-control m-input m-input--square" name="month" id="BaseRMRate_Month" asp-for="@Model.BaseRMRate.Month" asp-items="@selectListMonth">
+                    </select>
+                </div>
+*@
+                <div class="form-group">
+                    <label for="BaseRMRate_UnitRate">@L("UnitRate")</label>
+                    <input class="form-control m-input" id="BaseRMRate_UnitRate" value="@Model.BaseRMRate.UnitRate.ToString(CultureInfo.InvariantCulture)" type="number" name="unitRate" />
+                </div>
+
+                <div class="form-group">
+                    <label for="BaseRMRate_ScrapPercent">@L("ScrapPercent")</label>
+                    <input class="form-control m-input" id="BaseRMRate_ScrapPercent" value="@Model.BaseRMRate.ScrapPercent.ToString(CultureInfo.InvariantCulture)" type="number" name="scrapPercent" />
+                </div>
+
+                <div class="form-group">
+                    <label for="BaseRMRate_ScrapAmount">@L("ScrapAmount")</label>
+                    <input class="form-control m-input" id="BaseRMRate_ScrapAmount" value="@Model.BaseRMRate.ScrapAmount.ToString(CultureInfo.InvariantCulture)" type="number" name="scrapAmount" />
+                </div>
+
+                <div class="form-group">
+                    <label for="BaseRMRate_WeightRatio">@L("WeightRatio") (Value in Percentage)</label>
+                    <input class="form-control m-input" id="BaseRMRate_WeightRatio" value="@Model.BaseRMRate.WeightRatio.ToString(CultureInfo.InvariantCulture)" type="number" name="weightRatio" />
+                </div>
+
+                <div class="form-group">
+                    <label for="BaseRMRate_LossRatio">@L("LossRatio") (eg: 1.05 - Value in amount)</label>
+                    <input class="form-control m-input" id="BaseRMRate_LossRatio" value="@Model.BaseRMRate.LossRatio.ToString(CultureInfo.InvariantCulture)" type="number" name="lossRatio" />
+                </div>
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

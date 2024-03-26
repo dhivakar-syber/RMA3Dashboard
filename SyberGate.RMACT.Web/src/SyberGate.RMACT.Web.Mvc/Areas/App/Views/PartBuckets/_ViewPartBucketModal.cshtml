@@ -1,0 +1,40 @@
+﻿
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.PartBuckets
+@model PartBucketViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="PartBucketInformationsTab">
+        
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("RMSpec") :</h6>
+                @Model.PartBucket.RMSpec
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Buckets") :</h6>
+                @Model.PartBucket.Buckets
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Value") :</h6>
+                @Model.PartBucket.Value
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Buyer") :</h6>
+                @Model.PartBucket.Buyer
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Supplier") :</h6>
+                @Model.PartBucket.Supplier
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")
+

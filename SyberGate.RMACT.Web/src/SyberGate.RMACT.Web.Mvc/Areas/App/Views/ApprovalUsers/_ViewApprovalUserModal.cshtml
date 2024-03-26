@@ -1,0 +1,32 @@
+﻿
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.ApprovalUsers
+@model ApprovalUserViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="ApprovalUserInformationsTab">
+        
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("UserName") :</h6>
+                @Model.ApprovalUser.UserName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Department") :</h6>
+                @Model.ApprovalUser.Department
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Email") :</h6>
+                @Model.ApprovalUser.Email
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")
+

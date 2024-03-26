@@ -1,0 +1,132 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.Parts
+@model CreateOrEditPartModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditPart")) : L("CreateNewPart")))
+
+<div class="modal-body">
+        <div id="PartInformationsTab">
+            <form name="PartInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.Part.Id" />
+                }
+
+                <div class="form-group">
+                    <label for="Part_PartNo">@L("PartNo")</label>
+                    <input class="form-control" id="Part_PartNo" value="@Model.Part.PartNo" type="text" name="partNo" maxlength="@SyberGate.RMACT.Masters.PartConsts.MaxPartNoLength" minlength="@SyberGate.RMACT.Masters.PartConsts.MinPartNoLength" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Part_Description">@L("Description")</label>
+                    <input class="form-control" id="Part_Description" value="@Model.Part.Description" type="text" name="description" required maxlength="@SyberGate.RMACT.Masters.PartConsts.MaxDescriptionLength" minlength="@SyberGate.RMACT.Masters.PartConsts.MinDescriptionLength" />
+                </div>
+                <div class="form-group m-form__group">
+                    <label for="SupplierName">@L("Supplier")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="SupplierName" name="supplierName" value="@Model.SupplierName" type="text" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" id="OpenSupplierLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearSupplierNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="Part_SupplierId" value="@Model.Part.SupplierId" type="text" name="supplierId" hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="Part_SupplierId" value="" type="text" name="supplierId" hidden />
+                }
+
+
+                <div class="form-group m-form__group">
+                    <label for="BuyerName">@L("Buyer")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="BuyerName" name="buyerName" value="@Model.BuyerName" type="text" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" id="OpenBuyerLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearBuyerNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="Part_BuyerId" value="@Model.Part.BuyerId" type="text" name="buyerId" required hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="Part_BuyerId" value="" type="text" name="buyerId" required hidden />
+                }
+
+
+                <div class="form-group m-form__group">
+                    <label for="RMGroupName">@L("RMGroup")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="RMGroupName" name="rmGroupName" value="@Model.RMGroupName" type="text" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" id="OpenRMGroupLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearRMGroupNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="Part_RMGroupId" value="@Model.Part.RMGroupId" type="text" name="rmGroupId" hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="Part_RMGroupId" value="" type="text" name="rmGroupId" hidden />
+                }
+
+
+
+
+                <div class="form-group">
+                    <label for="Part_GrossInputWeight">@L("GrossInputWeight")</label>
+                    <input class="form-control m-input" id="Part_GrossInputWeight" value="@Model.Part.GrossInputWeight?.ToString(CultureInfo.InvariantCulture)" type="number" name="grossInputWeight" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Part_CastingForgingWeight">@L("CastingForgingWeight")</label>
+                    <input class="form-control m-input" id="Part_CastingForgingWeight" value="@Model.Part.CastingForgingWeight?.ToString(CultureInfo.InvariantCulture)" type="number" name="castingForgingWeight" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Part_FinishedWeight">@L("FinishedWeight")</label>
+                    <input class="form-control m-input" id="Part_FinishedWeight" value="@Model.Part.FinishedWeight?.ToString(CultureInfo.InvariantCulture)" type="number" name="finishedWeight" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Part_ScrapRecoveryPercent">@L("ScrapRecoveryPercent")</label>
+                    <input class="form-control m-input" id="Part_ScrapRecoveryPercent" value="@Model.Part.ScrapRecoveryPercent?.ToString(CultureInfo.InvariantCulture)" type="number" name="scrapRecoveryPercent" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Part_RMReferenceCost">@L("RMReferenceCost")</label>
+                    <input class="form-control m-input" id="Part_RMReferenceCost" value="@Model.Part.RMReferenceCost?.ToString(CultureInfo.InvariantCulture)" type="number" name="rmReferenceCost" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Part_ConversionCost">@L("ConversionCost")</label>
+                    <input class="form-control m-input" id="Part_ConversionCost" value="@Model.Part.ConversionCost?.ToString(CultureInfo.InvariantCulture)" type="number" name="conversionCost" />
+                </div>
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

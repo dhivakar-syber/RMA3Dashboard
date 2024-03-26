@@ -1,0 +1,39 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.RMGroups
+@model CreateOrEditRMGroupModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRMGroup")) : L("CreateNewRMGroup")))
+
+<div class="modal-body">
+        <div id="RMGroupInformationsTab">
+            <form name="RMGroupInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.RMGroup.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="RMGroup_Name">@L("Name")</label>
+									<input class="form-control" id="RMGroup_Name" value="@Model.RMGroup.Name" type="text" name="name"  required  maxlength="@SyberGate.RMACT.Masters.RMGroupConsts.MaxNameLength"  minlength="@SyberGate.RMACT.Masters.RMGroupConsts.MinNameLength"  />
+								</div>
+					
+								<div class="m-checkbox-list">
+									<label for="RMGroup_HasMixture" class="kt-checkbox">
+										<input id="RMGroup_HasMixture" type="checkbox" name="hasMixture" value="true" @Html.Raw(Model.RMGroup.HasMixture ?"checked=\"checked\"":"") />
+										@L("HasMixture")
+										<span></span>
+									</label>
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

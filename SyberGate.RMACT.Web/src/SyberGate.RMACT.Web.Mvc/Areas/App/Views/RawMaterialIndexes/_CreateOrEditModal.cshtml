@@ -1,0 +1,75 @@
+﻿@using SyberGate.RMACT.Masters;
+					
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.RawMaterialIndexes
+@model CreateOrEditRawMaterialIndexModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRawMaterialIndex")) : L("CreateNewRawMaterialIndex")))
+
+<div class="modal-body">
+        <div id="RawMaterialIndexInformationsTab">
+            <form name="RawMaterialIndexInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.RawMaterialIndex.Id" />
+                }
+
+				            
+						<div class="form-group">
+							<label for="indexNameId">@L("IndexName")</label>
+							@Html.DropDownList("indexNameId", new SelectList(Model.RawMaterialIndexIndexNameList,"Id","DisplayName", (Model.IsEditMode ? Model.RawMaterialIndex.IndexNameId.ToString() : "")),@L("SelectAIndexName"), new { @class = "form-control"  , @required="required" })
+						</div>
+            
+						<div class="form-group">
+							<label for="yearId">@L("Year")</label>
+							@Html.DropDownList("yearId", new SelectList(Model.RawMaterialIndexYearList,"Id","DisplayName", (Model.IsEditMode ? Model.RawMaterialIndex.YearId.ToString() : "")),@L("SelectAYear"), new { @class = "form-control"  , @required="required" })
+						</div>
+            
+								<div class="form-group m-form__group">
+										<label for="RawMaterialGradeName">@L("RawMaterialGrade")</label>
+									    <div class="input-group">
+											<input class="form-control" id="RawMaterialGradeName" name="rawMaterialGradeName" value="@Model.RawMaterialGradeName" type="text" disabled>
+										<div class="input-group-append">
+											<button class="btn btn-primary blue" id="OpenRawMaterialGradeLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+										</div> 
+										<div class="input-group-prepend">
+											<button class="btn btn-danger btn-icon" type="button" id="ClearRawMaterialGradeNameButton"><i class="fa fa-times"></i></button>
+										</div>
+									</div>
+								</div>
+
+								@if (Model.IsEditMode)
+								{
+									<input class="form-control" id="RawMaterialIndex_RawMaterialGradeId" value="@Model.RawMaterialIndex.RawMaterialGradeId" type="text" name="rawMaterialGradeId" required hidden/>
+								}
+								 else
+								{ 
+									<input class="form-control" id="RawMaterialIndex_RawMaterialGradeId" value="" type="text" name="rawMaterialGradeId" required hidden/>
+								}
+
+
+
+				
+								@{
+					var selectListMonth = Html.GetEnumSelectList(typeof(Months));
+					 foreach (var selectOption in selectListMonth) { selectOption.Text = L("Enum_Months_" + selectOption.Value); }
+					}
+								<div class="form-group m-form__group">
+									<label for="RawMaterialIndex_Month">@L("Month")</label>
+										<select class="form-control m-input m-input--square" name="month" id="RawMaterialIndex_Month" asp-for="@Model.RawMaterialIndex.Month" asp-items="@selectListMonth">
+									</select>
+								</div>
+					
+								<div class="form-group">
+									<label for="RawMaterialIndex_Value">@L("Value")</label>
+									<input class="form-control m-input" id="RawMaterialIndex_Value" value="@Model.RawMaterialIndex.Value?.ToString(CultureInfo.InvariantCulture)" type="number" name="value"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

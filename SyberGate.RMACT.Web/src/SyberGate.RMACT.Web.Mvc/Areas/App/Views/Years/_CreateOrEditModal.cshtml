@@ -1,0 +1,34 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.Years
+@model CreateOrEditYearModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditYear")) : L("CreateNewYear")))
+
+<div class="modal-body">
+        <div id="YearInformationsTab">
+            <form name="YearInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.Year.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="Year_Name">@L("Name")</label>
+									<input class="form-control" id="Year_Name" value="@Model.Year.Name" type="text" name="name"  required  maxlength="@SyberGate.RMACT.Masters.YearConsts.MaxNameLength"  minlength="@SyberGate.RMACT.Masters.YearConsts.MinNameLength"  />
+								</div>
+                                <div class="form-group">
+                                    <label for="Seq_No">@L("Name")</label>
+                                    <input class="form-control" id="Seq_No" value="@Model.Year.SeqNo" type="text" name="seqNo" required maxlength="@SyberGate.RMACT.Masters.YearConsts.MaxSeqLength" minlength="@SyberGate.RMACT.Masters.YearConsts.MinSeqLength" />
+                                </div>
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

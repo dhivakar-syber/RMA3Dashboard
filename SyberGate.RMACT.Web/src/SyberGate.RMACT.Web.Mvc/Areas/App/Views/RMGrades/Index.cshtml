@@ -1,0 +1,53 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.CommodityTrees
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model CommodityTreesViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.CommodityTrees;
+}
+
+@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/Areas/App/Views/CommodityTrees/Index.css" asp-append-version="true" />
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/CommodityTrees/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/App/Views/CommodityTrees/Rm_Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("CommodityHierarchy")" description="@L("CommodityTreesHeaderInfo")"></abp-page-subheader>
+        <div class="@(await GetContainerClass())">
+            <div class="row">
+                <div class="col">
+                    <div class="card card-custom card-stretch" id="ouCard">
+                        <div class="card-header align-items-center">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="font-weight-bolder text-dark">@L("CommodityTree")</span>
+                            </h3>
+                            <div class="card-toolbar">
+                                @if (IsGranted(AppPermissions.Pages_CommodityTrees_ManageCommodityTree))
+                                {
+                                    <button type="button" id="AddRootCommodityButton" class="btn btn-primary btn-sm">
+                                        <i class="la la-plus"></i> @L("AddRootCommodity")
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-scroll">
+                                <div id="CommodityEditTree"></div>
+                                <div id="CommodityTreeEmptyInfo" ng-if="!vm.CommodityTree.unitCount" class="text-muted">
+                                    @L("NoCommodityTreeDefinedYet")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+</div>

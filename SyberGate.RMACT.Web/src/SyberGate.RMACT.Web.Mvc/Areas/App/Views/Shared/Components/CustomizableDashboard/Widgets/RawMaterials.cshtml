@@ -1,0 +1,155 @@
+﻿@using SyberGate.RMACT.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/morris.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/raphael.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.flot.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.waypoints.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.counterup.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/topojson.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.easypiechart.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/chartist.min.js");
+}
+<div class="card card-custom Container h-100">
+    <div class="card-header align-items-center border-0 mt-4">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="font-weight-bolder text-dark">Raw Materials</span>
+        </h3>
+        @*<form id="chartForm">
+            <label for="labelInput">Label:</label>
+            <input type="text" id="labelInput" required><br><br>
+
+            <label for="dataInput">Data (comma-separated values):</label>
+            <input type="text" id="dataInput" required><br><br>
+
+            <label for="colorInput">Border Color:</label>
+            <input type="color" id="colorInput" value="#000000"><br><br>
+
+            <button type="button" id="addChartButton">Add Chart</button>
+        </form>
+
+       <button type="button" id="showFormButton" class="btn btn-primary">Show Form</button>*@
+
+        @*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chartModal">
+            Add New
+        </button>*@
+        
+
+       @* <div class="modal fade" id="chartModal" tabindex="-1" aria-labelledby="chartModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="chartModalLabel">Add Chart</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="chartForm">
+                            <div class="mb-3">
+                                <label for="labelInput" class="form-label">Label:</label>
+                                <input type="text" class="form-control" id="labelInput" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="dataInput" class="form-label">Data (comma-separated values):</label>
+                                <input type="text" class="form-control" id="dataInput" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="colorInput" class="form-label">Border Color:</label>
+                                <input type="color" class="form-control" id="colorInput" value="#000000">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="addChartButton">Add Chart</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+
+    @*<h1>Create a Line Chart</h1>
+    <form id="chartForm">
+        <label for="labelInput">Label:</label>
+        <input type="text" id="labelInput" required><br><br>
+
+        <label for="dataInput">Data (comma-separated values):</label>
+        <input type="text" id="dataInput" required><br><br>
+
+        <label for="colorInput">Border Color:</label>
+        <input type="color" id="colorInput" value="#000000"><br><br>
+
+        <button type="submit">Create Chart</button>
+    </form>
+    <div id="chartContainer">
+        <canvas id="lineChart"></canvas>
+    </div>*@
+
+    <div class="row RawMaterialContainer">
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart1" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart2" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart3" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart4" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart5" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart6" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart7" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart8" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                <canvas class="chart" id="lineChart9" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: right;">
+        <form id="chartForm">
+            <label for="labelInput">Raw Material:</label>
+            <input type="text" id="labelInput" required><br><br>
+
+            <label for="dataInput">Values per Month (comma-separated values):</label>
+            <input type="text" id="dataInput" required><br><br>
+
+            <label for="colorInput">Choose Color:</label>
+            <input type="color" id="colorInput" value="#000000"><br><br>
+
+            <button type="button" id="addChartButton">Add New Chart</button>
+        </form>
+    </div>
+</div>

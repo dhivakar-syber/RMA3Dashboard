@@ -1,0 +1,112 @@
+﻿@using SyberGate.RMACT.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/morris.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/raphael.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.flot.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.waypoints.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.counterup.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/topojson.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.easypiechart.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/chartist.min.js");
+}
+
+
+<div id="RMPriceHistory" class="card card-custom RMPriceHistoryContainer h-100">
+    <div class="card-header align-items-center border-0 mt-4">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="font-weight-bolder text-dark">Raw Material Price History</span>
+        </h3>
+        <br>
+        <div class="rmhistory-buyer-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="historyselBUyer">
+                </select>
+            </div>
+        </div>
+
+        <div class="rmhistory-supplier-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="historyselSupplier">
+                </select>
+            </div>
+        </div>
+
+        <div class="rmhistory-grade-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="historyselGrade">
+                </select>
+            </div>
+        </div>
+
+        <div class="rmhistory-spec-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="historyselSpec">
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-sm btn-primary btn-elevate-hover btn-pill" id="btn-export-a3" data-toggle="modal" data-target="#GenerateModal">
+                <i class="flaticon-analytics"></i>
+                Export RM Sheet
+            </button>
+            <button id="refresRMPriceHistoryButton" class="refreshRMPriceHistoryButton btn btn-outline-brand btn-sm btn-icon btn-icon-md">
+                <i class="flaticon2-refresh"></i>
+            </button>
+        </div>
+
+        <div id="category-1" class="card-body">
+            <div id="RMPriceHistory_Content" class="table-responsive">
+                <div class="overflow-auto" style="height: 600px;">
+                    <table id="RMPriceHistoryTable" class="table table-striped  table-head-solid table-bordered dataTable">
+                        <thead style="position:sticky; top:0;">
+                            <tr>
+                                <th class="p-2" style="width: 120px" rowspan="3">Buyer</th>
+                                <th class="p-2" style="width: 120px" rowspan="3">Supplier</th>
+                                <th class="p-2" style="width: 120px" rowspan="3">RM Group</th>
+                                <th class="p-2" style="width: 120px" rowspan="3">RM Grade</th>
+                                <th class="p-2" style="width: 120px" rowspan="3">RM Spec</th>
+                                <th class="p-2" style="width: 75px" rowspan="3">UOM</th>
+                                <th class="p-2" style="width: 120px" rowspan="3">Date</th>
+                                <th class="p-2" style="width: 120px" rowspan="3">Rate</th>
+                                <th class="p-2" style="width: 120px" rowspan="3">Scrap Rate (INR/Kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="flexDisplay" style="display: flex; flex-direction: row;">
+            <div class="flexHeight" style="min-width: 100px; width: 700px;">
+                <div class="card card-custom PriceHistoryContainer h-auto">
+                    <div class="card-header align-items-center border-0 mt-4">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="font-weight-bolder text-dark">Price History Chart</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas class="m_chart_price_history" id="m_chart_price_history" width="300" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="flexHeight" style="min-width: 100px; width: 700px;">
+                <div class="card card-custom ScrapRateContainer h-auto">
+                    <div class="card-header align-items-center border-0 mt-4">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="font-weight-bolder text-dark">Scrap Rate Chart</span>
+                        </h3>
+                    </div>
+
+                    <div class="card-body">
+                        <canvas class="m_chart_scrap_rate" id="m_chart_scrap_rate" width="300" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+       

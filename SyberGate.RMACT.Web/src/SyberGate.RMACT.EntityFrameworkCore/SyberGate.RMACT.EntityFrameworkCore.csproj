@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"></Import>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <RootNamespace>SyberGate.RMACT</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210217043354_Regenerated_Ethnicity1675.cs" />
+    <Compile Remove="Migrations\20210217043354_Regenerated_Ethnicity1675.Designer.cs" />
+    <Compile Remove="Migrations\20210217050251_Added_MedicinalType.cs" />
+    <Compile Remove="Migrations\20210217050251_Added_MedicinalType.Designer.cs" />
+    <Compile Remove="Migrations\20210217063132_Regenerated_MedicinalType6002.cs" />
+    <Compile Remove="Migrations\20210217063132_Regenerated_MedicinalType6002.Designer.cs" />
+    <Compile Remove="Migrations\20210217063437_Regenerated_MedicinalType4106.cs" />
+    <Compile Remove="Migrations\20210217063437_Regenerated_MedicinalType4106.Designer.cs" />
+    <Compile Remove="Migrations\20210217064704_Added_Gender.cs" />
+    <Compile Remove="Migrations\20210217064704_Added_Gender.Designer.cs" />
+    <Compile Remove="Migrations\20210217064958_Regenerated_Gender6142.cs" />
+    <Compile Remove="Migrations\20210217064958_Regenerated_Gender6142.Designer.cs" />
+    <Compile Remove="Migrations\20210222124545_Regenerated_Constant3188.cs" />
+    <Compile Remove="Migrations\20210222124545_Regenerated_Constant3188.Designer.cs" />
+    <Compile Remove="Migrations\20210222125209_Regenerated_Constant2748.cs" />
+    <Compile Remove="Migrations\20210222125209_Regenerated_Constant2748.Designer.cs" />
+    <Compile Remove="Migrations\20210222125833_Regenerated_Constant2029.cs" />
+    <Compile Remove="Migrations\20210222125833_Regenerated_Constant2029.Designer.cs" />
+    <Compile Remove="Migrations\20210222144909_Added_Icd10.cs" />
+    <Compile Remove="Migrations\20210222144909_Added_Icd10.Designer.cs" />
+    <Compile Remove="Migrations\20210222145113_Added_MedicalSpecialty.cs" />
+    <Compile Remove="Migrations\20210222145113_Added_MedicalSpecialty.Designer.cs" />
+    <Compile Remove="Migrations\20220425060349_CommodityTree_Recreated.cs" />
+    <Compile Remove="Migrations\20220425060349_CommodityTree_Recreated.Designer.cs" />
+    <Compile Remove="Migrations\20230129135648_A3PartBucketsAdded.cs" />
+    <Compile Remove="Migrations\20230129135648_A3PartBucketsAdded.Designer.cs" />
+    <Compile Remove="Migrations\20230605120005_a3priceimpact.cs" />
+    <Compile Remove="Migrations\20230605120005_a3priceimpact.Designer.cs" />
+    <Compile Remove="Migrations\20230605120732_isparentmixture,issubmixture,issubpart,isparentsubmixture-columns-added-a3priceimpact.cs" />
+    <Compile Remove="Migrations\20230605120732_isparentmixture,issubmixture,issubpart,isparentsubmixture-columns-added-a3priceimpact.Designer.cs" />
+    <Compile Remove="Migrations\20230605121434_isparentmixture,issubmixture,issubpart,isparentsubmixture-columns-added-a3priceimpact.cs" />
+    <Compile Remove="Migrations\20230605121434_isparentmixture,issubmixture,issubpart,isparentsubmixture-columns-added-a3priceimpact.Designer.cs" />
+    <Compile Remove="Migrations\20230605133005_a3priceimpact-columns-added.cs" />
+    <Compile Remove="Migrations\20230605133005_a3priceimpact-columns-added.Designer.cs" />
+    <Compile Remove="Migrations\20230614031517_RMTapTool-Table.cs" />
+    <Compile Remove="Migrations\20230614031517_RMTapTool-Table.Designer.cs" />
+    <Compile Remove="Migrations\20230614031810_RMTapTool-Table.cs" />
+    <Compile Remove="Migrations\20230614031810_RMTapTool-Table.Designer.cs" />
+    <Compile Remove="Migrations\20230707082331_supportattachmentsTable.cs" />
+    <Compile Remove="Migrations\20230707082331_supportattachmentsTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SyberGate.RMACT.Application.Shared\SyberGate.RMACT.Application.Shared.csproj" />
+    <ProjectReference Include="..\SyberGate.RMACT.Core\SyberGate.RMACT.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+
+</Project>

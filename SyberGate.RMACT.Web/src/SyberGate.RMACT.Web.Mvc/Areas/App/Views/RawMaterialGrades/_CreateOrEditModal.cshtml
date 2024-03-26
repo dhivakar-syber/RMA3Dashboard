@@ -1,0 +1,70 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.RawMaterialGrades
+@model CreateOrEditRawMaterialGradeModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRawMaterialGrade")) : L("CreateNewRawMaterialGrade")))
+
+<div class="modal-body">
+        <div id="RawMaterialGradeInformationsTab">
+            <form name="RawMaterialGradeInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.RawMaterialGrade.Id" />
+                }
+
+				            
+								<div class="form-group m-form__group">
+										<label for="RawMaterialGradeName">@L("ParentRM")</label>
+									    <div class="input-group">
+											<input class="form-control" id="RawMaterialGradeName" name="rawMaterialGradeName" value="@Model.RawMaterialGradeName" type="text" disabled>
+										<div class="input-group-append">
+											<button class="btn btn-primary blue" id="OpenRawMaterialGradeLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+										</div> 
+										<div class="input-group-prepend">
+											<button class="btn btn-danger btn-icon" type="button" id="ClearRawMaterialGradeNameButton"><i class="fa fa-times"></i></button>
+										</div>
+									</div>
+								</div>
+
+								@if (Model.IsEditMode)
+								{
+									<input class="form-control" id="RawMaterialGrade_RawMaterialGradeId" value="@Model.RawMaterialGrade.RawMaterialGradeId" type="text" name="rawMaterialGradeId"  hidden/>
+								}
+								 else
+								{ 
+									<input class="form-control" id="RawMaterialGrade_RawMaterialGradeId" value="" type="text" name="rawMaterialGradeId"  hidden/>
+								}
+
+
+
+				
+								<div class="form-group">
+									<label for="RawMaterialGrade_Name">@L("Name")</label>
+									<input class="form-control" id="RawMaterialGrade_Name" value="@Model.RawMaterialGrade.Name" type="text" name="name"  required  maxlength="@SyberGate.RMACT.Masters.RawMaterialGradeConsts.MaxNameLength"  minlength="@SyberGate.RMACT.Masters.RawMaterialGradeConsts.MinNameLength"  />
+								</div>
+					
+								<div class="m-checkbox-list">
+									<label for="RawMaterialGrade_IsGroup" class="kt-checkbox">
+										<input id="RawMaterialGrade_IsGroup" type="checkbox" name="isGroup" value="true" @Html.Raw(Model.RawMaterialGrade.IsGroup ?"checked=\"checked\"":"") />
+										@L("IsGroup")
+										<span></span>
+									</label>
+								</div>
+					
+								<div class="m-checkbox-list">
+									<label for="RawMaterialGrade_HasMixture" class="kt-checkbox">
+										<input id="RawMaterialGrade_HasMixture" type="checkbox" name="hasMixture" value="true" @Html.Raw(Model.RawMaterialGrade.HasMixture ?"checked=\"checked\"":"") />
+										@L("HasMixture")
+										<span></span>
+									</label>
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

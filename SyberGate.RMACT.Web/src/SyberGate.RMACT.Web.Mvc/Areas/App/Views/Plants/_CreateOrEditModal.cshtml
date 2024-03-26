@@ -1,0 +1,36 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.Plants
+@model CreateOrEditPlantModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditPlant")) : L("CreateNewPlant")))
+
+<div class="modal-body">
+        <div id="PlantInformationsTab">
+            <form name="PlantInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.Plant.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="Plant_Code">@L("Code")</label>
+									<input class="form-control" id="Plant_Code" value="@Model.Plant.Code" type="text" name="code"  required  maxlength="@SyberGate.RMACT.Masters.PlantConsts.MaxCodeLength"  minlength="@SyberGate.RMACT.Masters.PlantConsts.MinCodeLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Plant_Description">@L("Description")</label>
+									<input class="form-control" id="Plant_Description" value="@Model.Plant.Description" type="text" name="description"  required  maxlength="@SyberGate.RMACT.Masters.PlantConsts.MaxDescriptionLength"  minlength="@SyberGate.RMACT.Masters.PlantConsts.MinDescriptionLength"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

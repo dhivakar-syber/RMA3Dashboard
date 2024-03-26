@@ -1,0 +1,83 @@
+﻿@using {{Namespace_Here}}.Authorization
+@using {{Namespace_Here}}.Web.Areas.{{App_Area_Name_Here}}.Models.{{Entity_Name_Plural_Here}}
+@using {{Namespace_Here}}.Web.Areas.{{App_Area_Name_Here}}.Startup
+@model {{Entity_Name_Plural_Here}}ViewModel
+@{
+    ViewBag.CurrentPageName = {{App_Area_Name_Here}}PageNames.{{Page_Names_Sub_Class_Name_Here}}.{{Entity_Name_Plural_Here}};
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/{{App_Area_Name_Here}}/Views/{{Entity_Name_Plural_Here}}/Index.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("{{Entity_Name_Plural_Here}}")" description="@L("{{Entity_Name_Plural_Here}}HeaderInfo")">
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-success dropdown-toggle mr-1 btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-file-excel"></i> @L("ExcelOperations")
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" id="Export{{Entity_Name_Plural_Here}}ToExcelButton" href="#"> @L("ExportToExcel")</a>
+                <a class="dropdown-item" href="#">
+                    <span class="fileinput-button">
+                        <span>@L("ImportFromExcel")</span>
+                        <input id="Import{{Entity_Name_Plural_Here}}FromExcelButton" type="file" name="files" accept=".xlsx, .xls, .csv">
+                    </span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <span class="dropdown-item-text text-muted pl-3" href="#">
+                    <small class="pl-2"> @Html.Raw(L("ImportToExcelSampleFileDownloadInfo", "<a href='" + (ApplicationPath) + "assets/SampleFiles/ImportUsersSampleFile.xlsx" + "'>" + L("ClickHere") + "</a>"))</small>
+                </span>
+            </div>
+        </div>
+
+        @if (IsGranted(AppPermissions.Pages_Administration_{{Entity_Name_Plural_Here}}_Create))
+        {
+	<button id="CreateNew{{Entity_Name_Here}}Button" class="btn btn-primary btn-sm">
+    		<i class="fa fa-plus"></i> @L("CreateNew{{Entity_Name_Here}}")
+	</button>}
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+                        <div class="form-group align-items-center">
+                            <div class="input-group">
+                                <input type="text" id="{{Entity_Name_Plural_Here}}TableFilter" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                                <span class="input-group-btn">
+                                    <button id="Get{{Entity_Name_Plural_Here}}Button" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						<div class="kt-separator kt-separator--border-dashed"></div>
+					</div>
+{{Property_Filter_Template_Here}}{{NP_Filter_Template_Here}}
+
+                </div>
+                <div class="row mb-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+	    </div>
+            <div class="align-items-center">
+                <table id="{{Entity_Name_Plural_Here}}Table" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>@L("Actions")</th>{{Property_Looped_Template_Here}}{{NP_Looped_Template_Here}}
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+  {{Div_After_Metronic_V606}}
+</div>

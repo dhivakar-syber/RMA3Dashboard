@@ -1,0 +1,41 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.PartModelMatrixes
+@model CreateOrEditPartModelMatrixModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditPartModelMatrix")) : L("CreateNewPartModelMatrix")))
+
+<div class="modal-body">
+        <div id="PartModelMatrixInformationsTab">
+            <form name="PartModelMatrixInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.PartModelMatrix.Id" />
+                }
+
+				            
+						<div class="form-group">
+							<label for="leadModelId">@L("LeadModel")</label>
+							@Html.DropDownList("leadModelId", new SelectList(Model.PartModelMatrixLeadModelList,"Id","DisplayName", (Model.IsEditMode ? Model.PartModelMatrix.LeadModelId.ToString() : "")),@L("Select a LeadModel"), new { @class = "form-control"  , @required="required" })
+						</div>
+
+
+				
+								<div class="form-group">
+									<label for="PartModelMatrix_PartNumber">@L("PartNumber")</label>
+									<input class="form-control" id="PartModelMatrix_PartNumber" value="@Model.PartModelMatrix.PartNumber" type="text" name="partNumber"  required  maxlength="@SyberGate.RMACT.Masters.PartModelMatrixConsts.MaxPartNumberLength"  minlength="@SyberGate.RMACT.Masters.PartModelMatrixConsts.MinPartNumberLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="PartModelMatrix_Quantity">@L("Quantity")</label>
+									<input class="form-control m-input" id="PartModelMatrix_Quantity" value="@Model.PartModelMatrix.Quantity.ToString(CultureInfo.InvariantCulture)" type="number" name="quantity"  min="@SyberGate.RMACT.Masters.PartModelMatrixConsts.MinQuantityValue"  max="@SyberGate.RMACT.Masters.PartModelMatrixConsts.MaxQuantityValue"/>
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

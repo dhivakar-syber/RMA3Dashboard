@@ -1,0 +1,115 @@
+﻿@using SyberGate.RMACT.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/morris.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/raphael.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.flot.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.waypoints.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.counterup.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/topojson.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.easypiechart.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/chartist.min.js");
+}
+<div id="AVOBChart" class="card card-custom AVOBChartContainer h-100">
+    <div class="card-header align-items-center border-0 mt-4">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="font-weight-bolder text-dark">AVOB Comparison</span>
+        </h3>
+        <br>
+        <div class="avobchart-year-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="avobchartselYear">
+                </select>
+            </div>
+        </div>
+
+        <div class="avobchart-month-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="avobchartselMonth">
+                    <option value=" ">Select Month</option>
+                    <option value="1" selected>January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="avobchart-month2-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="avobchartselMonth2">
+                    <option value=" ">Select Month To Compare</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="avobchart-plant-filter-container">
+            <div class="input-group">
+                <select class="form-control" id="avobchartselPlant">
+                </select>
+            </div>
+        </div>
+
+        <br>
+        <button type="button" class="btn btn-sm btn-primary btn-elevate-hover btn-pill" id="AVOBChartSubmit">
+            Submit
+        </button>
+        <button id="refreshAVOBchartButton" class="refreshAVOBchartButton btn btn-outline-brand btn-sm btn-icon btn-icon-md">
+            <i class="flaticon2-refresh"></i>
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="avobchart-container" style="max-width: 450px; max-height: 400px;">
+                    <canvas class="avobchart" id="m_chart_Current_AVOB" width="450" height="400"></canvas>
+                </div>
+                <div class="card-body">
+                    <p class="card-title"><b>Current AVOB</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="avobchart-container" style="max-width: 450px; max-height: 400px;">
+                    <canvas class="avobchart" id="m_chart_Delta" width="450" height="400"></canvas>
+                </div>
+                <div class="card-body">
+                    <p class="card-title"><b>Delta From Current - Revised AVOB</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="avobchart-container" style="max-width: 450px; max-height: 400px;">
+                    <canvas class="avobchart" id="m_chart_Revised_AVOB" width="450" height="400"></canvas>
+                </div>
+                <div class="card-body">
+                    <p class="card-title"><b>Revised AVOB</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

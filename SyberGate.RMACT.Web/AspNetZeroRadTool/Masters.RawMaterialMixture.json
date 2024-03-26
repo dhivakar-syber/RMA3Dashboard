@@ -1,0 +1,109 @@
+{
+  "IsRegenerate": true,
+  "MenuPosition": "admin",
+  "RelativeNamespace": "Masters",
+  "EntityName": "RawMaterialMixture",
+  "EntityNamePlural": "RawMaterialMixtures",
+  "TableName": "RawMaterialMixtures",
+  "PrimaryKeyType": "int",
+  "BaseClass": "Entity",
+  "EntityHistory": true,
+  "AutoMigration": true,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": false,
+  "CreateExcelExport": false,
+  "IsNonModalCRUDPage": false,
+  "PagePermission": {
+    "Host": false,
+    "Tenant": false
+  },
+  "Properties": [
+    {
+      "Name": "WeightRatio",
+      "Type": "decimal",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": true,
+        "MinimumValue": 0,
+        "MaximumValue": 200
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": false,
+        "List": true,
+        "CreateOrUpdate": true
+      }
+    },
+    {
+      "Name": "LossRatio",
+      "Type": "decimal",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": true,
+        "MinimumValue": 0,
+        "MaximumValue": 200
+      },
+      "Required": false,
+      "Nullable": true,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": false,
+        "List": true,
+        "CreateOrUpdate": true
+      }
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "SyberGate.RMACT.Masters",
+      "ForeignEntityName": "RMGroup",
+      "IdType": "int",
+      "IsNullable": false,
+      "PropertyName": "RMGroupId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "SyberGate.RMACT.Masters",
+      "ForeignEntityName": "RawMaterialGrade",
+      "IdType": "int",
+      "IsNullable": false,
+      "PropertyName": "RawMaterialGradeId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "SyberGate.RMACT.Masters",
+      "ForeignEntityName": "Buyer",
+      "IdType": "int",
+      "IsNullable": false,
+      "PropertyName": "BuyerId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "SyberGate.RMACT.Masters",
+      "ForeignEntityName": "Supplier",
+      "IdType": "int",
+      "IsNullable": false,
+      "PropertyName": "SupplierId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    }
+  ],
+  "EnumDefinitions": [],
+  "DbContext": null
+}

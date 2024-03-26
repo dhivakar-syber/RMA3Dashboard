@@ -1,0 +1,108 @@
+﻿
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.ProcureDatas
+@model ProcureDataViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="ProcureDataInformationsTab">
+        
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("PartNo") :</h6>
+                @Model.ProcureData.PartNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.ProcureData.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("SupplierCode") :</h6>
+                @Model.ProcureData.SupplierCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("SuppliserName") :</h6>
+                @Model.ProcureData.SuppliserName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CurrentExwPrice") :</h6>
+                @Model.ProcureData.CurrentExwPrice
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PriceCurrency") :</h6>
+                @Model.ProcureData.PriceCurrency
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Uom") :</h6>
+                @Model.ProcureData.Uom
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Buyer") :</h6>
+                @Model.ProcureData.Buyer
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("FromDate") :</h6>
+                @Model.ProcureData.FromDate
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ToDate") :</h6>
+                @Model.ProcureData.ToDate
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PackagingCost") :</h6>
+                @Model.ProcureData.PackagingCost
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("LogisticsCost") :</h6>
+                @Model.ProcureData.LogisticsCost
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PlantCode") :</h6>
+                @Model.ProcureData.PlantCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PlantDescription") :</h6>
+                @Model.ProcureData.PlantDescription
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ContractNo") :</h6>
+                @Model.ProcureData.ContractNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("SOB") :</h6>
+                @Model.ProcureData.SOB
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("EPU") :</h6>
+                @Model.ProcureData.EPU
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Status") :</h6>
+                @Model.ProcureData.Status
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CreationTime") :</h6>
+                @Model.ProcureData.CreationTime
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DeletionTime") :</h6>
+                @Model.ProcureData.DeletionTime
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("IsDeleted") :</h6>
+                @Model.ProcureData.IsDeleted
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("LastModificationTime") :</h6>
+                @Model.ProcureData.LastModificationTime
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")
+

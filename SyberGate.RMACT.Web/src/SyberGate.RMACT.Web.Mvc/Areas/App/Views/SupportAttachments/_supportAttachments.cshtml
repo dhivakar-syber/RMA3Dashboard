@@ -1,0 +1,52 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.SupportAttachments
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Startup
+
+
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/A3Documents/_supportAttachments.js" asp-append-version="true"></script>
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(@L("SupportAttachmentList")))
+
+<div class="d-flex flex-column flex-column-fluid" id="kt_content" style="width: 1700px;">
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+                            <div class="form-group align-items-center">
+                                <div class="input-group">
+                                    <input type="text" id="A3DocumentsTableFilter" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                                    <span class="input-group-btn">
+                                        <button id="GetA3DocumentsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    
+                </div>
+                <div class="align-items-center">
+                    <table id="SupportDocuments" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                
+                                <th>@L("A3Id")</th>
+                                <th>@L("SupportAttachments")</th>
+                                
+                                
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

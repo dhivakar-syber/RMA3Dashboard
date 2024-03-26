@@ -1,0 +1,63 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.BaseRMRates
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model BaseRMHistoryViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.BaseRMRates;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/BaseRMRates/BaseRMEditModal.js" asp-append-version="true"></script>
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(@L("BaseRMEdit")))
+
+<div class="d-flex flex-column flex-column-fluid" id="kt_content">
+
+    <input type="hidden" id="BuyerNameFilterId" value="@Model.BuyerId" />
+    <input type="hidden" id="SupplierNameFilterId" value="@Model.SupplierId" />
+    <input type="hidden" id="DateRangeFilter" value="@Model.Period" />
+    <input type="hidden" id="GroupFilterId" value="@Model.RMGroupId" />
+    <div class="@(await GetContainerClass()) card card-custom h-100 RMPriceTrendContainer">
+        <div class="card-header align-items-center border-0 mt-4">
+            <h3 class="card-title align-items-start flex-column">
+                <small><i class=" p-0 m-0 fa fa-user"></i> Buyer : <span class="font-weight-bolder  text-dark" id="buyer">@Model.Buyer</span> <i class=" p-0 m-0 fa fa-user"></i> Supplier : <span class="font-weight-bolder text-dark" id="supplier">@Model.Supplier</span></small>
+            </h3>
+        </div>
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div id="divBaseRMEditTable" style="min-height:400px !important" class="table-responsive align-items-center">
+                    <table id="BaseRMEditTable" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap dtfc-has-left stripe">
+                        <thead>
+                            <tr>
+                                <th style="width: 125px; text-align:center">@L("RMGrade")</th>
+                                <th class="p-3 dtfc-fixed-left" style="width: 125px; left: 0px; position: sticky;text-align:center;">@L("RMSpec")</th>
+                                <th style="width: 75px">@L("UOM")</th>
+                                <th style="width: 75px">Settled Date</th>
+                                <th style="width: 75px">@L("UnitRate")</th>
+                                <th style="width: 75px">@L("ScrapAmount")</th>
+                                <th style="width: 75px">@L("WeightRatio")</th>
+                                <th style="width: 75px">@L("MeltingLossRatio")</th>
+                                @*<th>"Revision (Month & Year)"</th>*@
+                                <th style="width: 125px">Revision Date</th>
+                                <th style="width: 75px">@L("UnitRate")</th>
+                                <th style="width: 75px">@L("ScrapAmount")</th>
+                                <th style="width: 75px">@L("WeightRatio")</th>
+                                <th style="width: 75px">@L("MeltingLossRatio")</th>
+                                <th style="width: 75px">@L("Index")</th>
+                                <th style="width: 75px">@L("FromPeriod")</th>
+                                <th style="width: 75px">@L("ToPeriod")</th>
+                                <th style="width: 75px">@L("AvgIndex")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

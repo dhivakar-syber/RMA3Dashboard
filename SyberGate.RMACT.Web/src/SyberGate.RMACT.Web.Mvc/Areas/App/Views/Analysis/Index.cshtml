@@ -1,0 +1,117 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@using SyberGate.RMACT.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/morris.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/raphael.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.flot.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.waypoints.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.counterup.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/topojson.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.easypiechart.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/chartist.min.js");
+}
+@{
+    ViewBag.CurrentPageName = AppPageNames.Tenant.Analysis;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/Analysis/Index.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("Analysis")"></abp-page-subheader>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart1" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart2" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart3" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart4" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart5" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart6" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart7" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart8" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                    <canvas class="chart" id="lineChart9" width="400" height="400"></canvas>
+                </div>       
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="font-weight-bold text-dark">AVOB Value Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                            <canvas class="chart" id="pieChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="font-weight-bold text-dark"> AVOB TONNAGE Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                            <canvas class="chart" id="pieChart1" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="font-weight-bold text-dark"> RM Amendment Status Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="max-width: 400px; max-height: 400px;">
+                            <canvas class="chart" id="stackedChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

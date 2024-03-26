@@ -1,0 +1,36 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.UnitOfMeasurements
+@model CreateOrEditUnitOfMeasurementModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditUnitOfMeasurement")) : L("CreateNewUnitOfMeasurement")))
+
+<div class="modal-body">
+        <div id="UnitOfMeasurementInformationsTab">
+            <form name="UnitOfMeasurementInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.UnitOfMeasurement.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="UnitOfMeasurement_Code">@L("Code")</label>
+									<input class="form-control" id="UnitOfMeasurement_Code" value="@Model.UnitOfMeasurement.Code" type="text" name="code"  required  maxlength="@SyberGate.RMACT.Masters.UnitOfMeasurementConsts.MaxCodeLength"  minlength="@SyberGate.RMACT.Masters.UnitOfMeasurementConsts.MinCodeLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="UnitOfMeasurement_Name">@L("Name")</label>
+									<input class="form-control" id="UnitOfMeasurement_Name" value="@Model.UnitOfMeasurement.Name" type="text" name="name"  required  maxlength="@SyberGate.RMACT.Masters.UnitOfMeasurementConsts.MaxNameLength"  minlength="@SyberGate.RMACT.Masters.UnitOfMeasurementConsts.MinNameLength"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

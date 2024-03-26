@@ -1,0 +1,120 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.RawMaterialIndexes
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model RawMaterialIndexesViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.RawMaterialIndexes;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/RawMaterialIndexes/Index.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("RawMaterialIndexes")" description="@L("RawMaterialIndexesHeaderInfo")">
+       
+
+        @if (IsGranted(AppPermissions.Pages_Administration_RawMaterialIndexes_Create))
+        {
+	<button id="CreateNewRawMaterialIndexButton" class="btn btn-primary btn-sm">
+    		<i class="fa fa-plus"></i> @L("CreateNewRawMaterialIndex")
+	</button>}
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+                        <div class="form-group align-items-center">
+                            <div class="input-group">
+                                <input type="text" id="RawMaterialIndexesTableFilter" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                                <span class="input-group-btn">
+                                    <button id="GetRawMaterialIndexesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						<div class="kt-separator kt-separator--border-dashed"></div>
+					</div>
+
+							<div class="col-md-3">
+								<label for="MonthFilterId">@L("Month")</label>
+								<select class="form-control" name="MonthFilter" id="MonthFilterId">
+								<option value="-1">@L("All")</option>
+																			<option value="0">@L("Enum_Months_0")</option>
+
+										<option value="1">@L("Enum_Months_1")</option>
+
+										<option value="2">@L("Enum_Months_2")</option>
+
+										<option value="3">@L("Enum_Months_3")</option>
+
+										<option value="4">@L("Enum_Months_4")</option>
+
+										<option value="5">@L("Enum_Months_5")</option>
+
+										<option value="6">@L("Enum_Months_6")</option>
+
+										<option value="7">@L("Enum_Months_7")</option>
+
+										<option value="8">@L("Enum_Months_8")</option>
+
+										<option value="9">@L("Enum_Months_9")</option>
+
+										<option value="10">@L("Enum_Months_10")</option>
+
+										<option value="11">@L("Enum_Months_11")</option>
+
+
+								</select>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="IndexNameNameFilterId">(@L("IndexName")) @L("Name")</label>
+									<input type="text" class="form-control" name="indexNameNameFilter" id="IndexNameNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="YearNameFilterId">(@L("Year")) @L("Name")</label>
+									<input type="text" class="form-control" name="yearNameFilter" id="YearNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="RawMaterialGradeNameFilterId">(@L("RawMaterialGrade")) @L("Name")</label>
+									<input type="text" class="form-control" name="rawMaterialGradeNameFilter" id="RawMaterialGradeNameFilterId">
+								</div>
+                            </div>
+
+                </div>
+                <div class="row mb-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+	    </div>
+            <div class="align-items-center">
+                <table id="RawMaterialIndexesTable" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>@L("Actions")</th>
+								<th>@L("Month")</th>
+								<th>@L("Value")</th>
+								<th>@L("IndexNameName")</th>
+								<th>@L("YearName")</th>
+								<th>@L("RawMaterialGradeName")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

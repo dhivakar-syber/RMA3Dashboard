@@ -1,0 +1,153 @@
+{
+  "IsRegenerate": false,
+  "MenuPosition": "admin",
+  "RelativeNamespace": "Masters",
+  "EntityName": "RawMaterialIndex",
+  "EntityNamePlural": "RawMaterialIndexes",
+  "TableName": "RawMaterialIndexes",
+  "PrimaryKeyType": "int",
+  "BaseClass": "Entity",
+  "EntityHistory": true,
+  "AutoMigration": true,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "IsNonModalCRUDPage": false,
+  "PagePermission": {
+    "Host": false,
+    "Tenant": false
+  },
+  "Properties": [
+    {
+      "Name": "Month",
+      "Type": "Months",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0,
+        "MaximumValue": 0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      }
+    },
+    {
+      "Name": "Value",
+      "Type": "decimal",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0,
+        "MaximumValue": 0
+      },
+      "Required": false,
+      "Nullable": true,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": false,
+        "List": true,
+        "CreateOrUpdate": true
+      }
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "SyberGate.RMACT.Masters",
+      "ForeignEntityName": "IndexName",
+      "IdType": "int",
+      "IsNullable": false,
+      "PropertyName": "IndexNameId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "Dropdown"
+    },
+    {
+      "Namespace": "SyberGate.RMACT.Masters",
+      "ForeignEntityName": "Year",
+      "IdType": "int",
+      "IsNullable": false,
+      "PropertyName": "YearId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "Dropdown"
+    },
+    {
+      "Namespace": "SyberGate.RMACT.Masters",
+      "ForeignEntityName": "RawMaterialGrade",
+      "IdType": "int",
+      "IsNullable": false,
+      "PropertyName": "RawMaterialGradeId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    }
+  ],
+  "EnumDefinitions": [
+    {
+      "Name": "Months",
+      "Namespace": "SyberGate.RMACT.Masters",
+      "EnumProperties": [
+        {
+          "Name": "Jan",
+          "Value": 0
+        },
+        {
+          "Name": "Feb",
+          "Value": 1
+        },
+        {
+          "Name": "Mar",
+          "Value": 2
+        },
+        {
+          "Name": "Apr",
+          "Value": 3
+        },
+        {
+          "Name": "May",
+          "Value": 4
+        },
+        {
+          "Name": "Jun",
+          "Value": 5
+        },
+        {
+          "Name": "Jul",
+          "Value": 6
+        },
+        {
+          "Name": "Aug",
+          "Value": 7
+        },
+        {
+          "Name": "Sep",
+          "Value": 8
+        },
+        {
+          "Name": "Oct",
+          "Value": 9
+        },
+        {
+          "Name": "Nov",
+          "Value": 10
+        },
+        {
+          "Name": "Dec",
+          "Value": 11
+        }
+      ]
+    }
+  ],
+  "DbContext": null
+}

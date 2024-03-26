@@ -1,0 +1,139 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.ProcureDatas
+@model CreateOrEditProcureDataModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditProcureData")) : L("CreateNewProcureData")))
+
+<div class="modal-body">
+        <div id="ProcureDataInformationsTab">
+            <form name="ProcureDataInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.ProcureData.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="ProcureData_PartNo">@L("PartNo")</label>
+									<input class="form-control" id="ProcureData_PartNo" value="@Model.ProcureData.PartNo" type="text" name="partNo"   maxlength="@SyberGate.RMACT.Masters.ProcureDataConsts.MaxPartNoLength"  minlength="@SyberGate.RMACT.Masters.ProcureDataConsts.MinPartNoLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_Description">@L("Description")</label>
+									<input class="form-control" id="ProcureData_Description" value="@Model.ProcureData.Description" type="text" name="description"  required  maxlength="@SyberGate.RMACT.Masters.ProcureDataConsts.MaxDescriptionLength"  minlength="@SyberGate.RMACT.Masters.ProcureDataConsts.MinDescriptionLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_SupplierCode">@L("SupplierCode")</label>
+									<input class="form-control" id="ProcureData_SupplierCode" value="@Model.ProcureData.SupplierCode" type="text" name="supplierCode"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_SuppliserName">@L("SuppliserName")</label>
+									<input class="form-control" id="ProcureData_SuppliserName" value="@Model.ProcureData.SuppliserName" type="text" name="suppliserName"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_CurrentExwPrice">@L("CurrentExwPrice")</label>
+									<input class="form-control m-input" id="ProcureData_CurrentExwPrice" value="@Model.ProcureData.CurrentExwPrice.ToString(CultureInfo.InvariantCulture)" type="number" name="currentExwPrice"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_PriceCurrency">@L("PriceCurrency")</label>
+									<input class="form-control" id="ProcureData_PriceCurrency" value="@Model.ProcureData.PriceCurrency" type="text" name="priceCurrency"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_Uom">@L("Uom")</label>
+									<input class="form-control" id="ProcureData_Uom" value="@Model.ProcureData.Uom" type="text" name="uom"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_Buyer">@L("Buyer")</label>
+									<input class="form-control" id="ProcureData_Buyer" value="@Model.ProcureData.Buyer" type="text" name="buyer"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_FromDate">@L("FromDate")</label>
+									<input class="form-control m-input date-picker" id="ProcureData_FromDate" type="text" name="fromDate" value="@Model.ProcureData.FromDate"/>
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_ToDate">@L("ToDate")</label>
+									<input class="form-control m-input date-picker" id="ProcureData_ToDate" type="text" name="toDate" value="@Model.ProcureData.ToDate"/>
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_PackagingCost">@L("PackagingCost")</label>
+									<input class="form-control m-input" id="ProcureData_PackagingCost" value="@Model.ProcureData.PackagingCost.ToString(CultureInfo.InvariantCulture)" type="number" name="packagingCost"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_LogisticsCost">@L("LogisticsCost")</label>
+									<input class="form-control m-input" id="ProcureData_LogisticsCost" value="@Model.ProcureData.LogisticsCost.ToString(CultureInfo.InvariantCulture)" type="number" name="logisticsCost"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_PlantCode">@L("PlantCode")</label>
+									<input class="form-control" id="ProcureData_PlantCode" value="@Model.ProcureData.PlantCode" type="text" name="plantCode"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_PlantDescription">@L("PlantDescription")</label>
+									<input class="form-control" id="ProcureData_PlantDescription" value="@Model.ProcureData.PlantDescription" type="text" name="plantDescription"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_ContractNo">@L("ContractNo")</label>
+									<input class="form-control" id="ProcureData_ContractNo" value="@Model.ProcureData.ContractNo" type="text" name="contractNo"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_SOB">@L("SOB")</label>
+									<input class="form-control m-input" id="ProcureData_SOB" value="@Model.ProcureData.SOB.ToString(CultureInfo.InvariantCulture)" type="number" name="sob"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_EPU">@L("EPU")</label>
+									<input class="form-control m-input" id="ProcureData_EPU" value="@Model.ProcureData.EPU.ToString(CultureInfo.InvariantCulture)" type="number" name="epu"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_Status">@L("Status")</label>
+									<input class="form-control" id="ProcureData_Status" value="@Model.ProcureData.Status" type="text" name="status"     />
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_CreationTime">@L("CreationTime")</label>
+									<input class="form-control m-input date-picker" id="ProcureData_CreationTime" type="text" name="creationTime" value="@Model.ProcureData.CreationTime"/>
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_DeletionTime">@L("DeletionTime")</label>
+									<input class="form-control m-input date-picker" id="ProcureData_DeletionTime" type="text" name="deletionTime" value="@Model.ProcureData.DeletionTime"/>
+								</div>
+					
+								<div class="m-checkbox-list">
+									<label for="ProcureData_IsDeleted" class="kt-checkbox">
+										<input id="ProcureData_IsDeleted" type="checkbox" name="isDeleted" value="true" @Html.Raw(Model.ProcureData.IsDeleted ?"checked=\"checked\"":"") />
+										@L("IsDeleted")
+										<span></span>
+									</label>
+								</div>
+					
+								<div class="form-group">
+									<label for="ProcureData_LastModificationTime">@L("LastModificationTime")</label>
+									<input class="form-control m-input date-picker" id="ProcureData_LastModificationTime" type="text" name="lastModificationTime" value="@Model.ProcureData.LastModificationTime"/>
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

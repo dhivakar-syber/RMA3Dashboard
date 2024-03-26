@@ -1,0 +1,96 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.RawMaterialMixtures
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model RawMaterialMixturesViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.RawMaterialMixtures;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/RawMaterialMixtures/Index.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("RawMaterialMixtures")" description="@L("RawMaterialMixturesHeaderInfo")">
+        
+
+        @if (IsGranted(AppPermissions.Pages_Administration_RawMaterialMixtures_Create))
+        {
+	<button id="CreateNewRawMaterialMixtureButton" class="btn btn-primary btn-sm">
+    		<i class="fa fa-plus"></i> @L("CreateNewRawMaterialMixture")
+	</button>}
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+                        <div class="form-group align-items-center">
+                            <div class="input-group">
+                                <input type="text" id="RawMaterialMixturesTableFilter" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                                <span class="input-group-btn">
+                                    <button id="GetRawMaterialMixturesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						<div class="kt-separator kt-separator--border-dashed"></div>
+					</div>
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="RMGroupNameFilterId">(@L("RMGroup")) @L("Name")</label>
+									<input type="text" class="form-control" name="rmGroupNameFilter" id="RMGroupNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="RawMaterialGradeNameFilterId">(@L("RawMaterialGrade")) @L("Name")</label>
+									<input type="text" class="form-control" name="rawMaterialGradeNameFilter" id="RawMaterialGradeNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="BuyerNameFilterId">(@L("Buyer")) @L("Name")</label>
+									<input type="text" class="form-control" name="buyerNameFilter" id="BuyerNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="SupplierNameFilterId">(@L("Supplier")) @L("Name")</label>
+									<input type="text" class="form-control" name="supplierNameFilter" id="SupplierNameFilterId">
+								</div>
+                            </div>
+
+                </div>
+                <div class="row mb-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+	    </div>
+            <div class="align-items-center">
+                <table id="RawMaterialMixturesTable" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>@L("Actions")</th>
+                            <th>@L("BuyerName")</th>
+                            <th>@L("SupplierName")</th>
+                            <th>@L("ParentRMGradeName")</th>
+                            <th>@L("RMSpec")</th>
+                            <th>@L("WeightRatio")</th>
+                            <th>@L("LossRatio")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

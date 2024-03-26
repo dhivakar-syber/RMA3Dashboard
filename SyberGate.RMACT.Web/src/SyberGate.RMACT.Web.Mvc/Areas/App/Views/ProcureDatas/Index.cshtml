@@ -1,0 +1,259 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.ProcureDatas
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model ProcureDatasViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.ProcureDatas;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/ProcureDatas/Index.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("ProcureDatas")" description="@L("ProcureDatasHeaderInfo")">
+        <div class="btn-group">
+            
+        </div>
+
+        @if (IsGranted(AppPermissions.Pages_Administration_ProcureDatas_Create))
+        {
+	<button id="CreateNewProcureDataButton" class="btn btn-primary btn-sm">
+    		<i class="fa fa-plus"></i> @L("CreateNewProcureData")
+	</button>}
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+                        <div class="form-group align-items-center">
+                            <div class="input-group">
+                                <input type="text" id="ProcureDatasTableFilter" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                                <span class="input-group-btn">
+                                    <button id="GetProcureDatasButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						<div class="kt-separator kt-separator--border-dashed"></div>
+					</div>
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="PartNoFilterId">@L("PartNo")</label>
+									<input type="text" class="form-control" name="partNoFilter" id="PartNoFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="DescriptionFilterId">@L("Description")</label>
+									<input type="text" class="form-control" name="descriptionFilter" id="DescriptionFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="SupplierCodeFilterId">@L("SupplierCode")</label>
+									<input type="text" class="form-control" name="supplierCodeFilter" id="SupplierCodeFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="SuppliserNameFilterId">@L("SuppliserName")</label>
+									<input type="text" class="form-control" name="suppliserNameFilter" id="SuppliserNameFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                 <div class="form-group">
+									<label  for="MinCurrentExwPriceFilterId">@L("MinMax") @L("CurrentExwPrice")</label>
+									<div class="input-group">
+										<input type="number" class="form-control m-input" placeholder="@L("MinValue")" name="minCurrentExwPriceFilter" id="MinCurrentExwPriceFilterId"/>
+                                        <input type="number" class="form-control m-input" placeholder="@L("MaxValue")" name="maxCurrentExwPriceFilter"  id="MaxCurrentExwPriceFilterId"/>
+									</div>
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="PriceCurrencyFilterId">@L("PriceCurrency")</label>
+									<input type="text" class="form-control" name="priceCurrencyFilter" id="PriceCurrencyFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="UomFilterId">@L("Uom")</label>
+									<input type="text" class="form-control" name="uomFilter" id="UomFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="BuyerFilterId">@L("Buyer")</label>
+									<input type="text" class="form-control" name="buyerFilter" id="BuyerFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="form-group">
+										<label for="MinFromDateFilterId">@L("FromDateRange")</label>
+										<div class="input-group">
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MinValue")"  id="MinFromDateFilterId">
+											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MaxValue")"  id="MaxFromDateFilterId">
+										</div>
+									</div>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="form-group">
+										<label for="MinToDateFilterId">@L("ToDateRange")</label>
+										<div class="input-group">
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MinValue")"  id="MinToDateFilterId">
+											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MaxValue")"  id="MaxToDateFilterId">
+										</div>
+									</div>
+                            </div>
+                            <div class="col-md-3">
+                                 <div class="form-group">
+									<label  for="MinPackagingCostFilterId">@L("MinMax") @L("PackagingCost")</label>
+									<div class="input-group">
+										<input type="number" class="form-control m-input" placeholder="@L("MinValue")" name="minPackagingCostFilter" id="MinPackagingCostFilterId"/>
+                                        <input type="number" class="form-control m-input" placeholder="@L("MaxValue")" name="maxPackagingCostFilter"  id="MaxPackagingCostFilterId"/>
+									</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                 <div class="form-group">
+									<label  for="MinLogisticsCostFilterId">@L("MinMax") @L("LogisticsCost")</label>
+									<div class="input-group">
+										<input type="number" class="form-control m-input" placeholder="@L("MinValue")" name="minLogisticsCostFilter" id="MinLogisticsCostFilterId"/>
+                                        <input type="number" class="form-control m-input" placeholder="@L("MaxValue")" name="maxLogisticsCostFilter"  id="MaxLogisticsCostFilterId"/>
+									</div>
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="PlantCodeFilterId">@L("PlantCode")</label>
+									<input type="text" class="form-control" name="plantCodeFilter" id="PlantCodeFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="PlantDescriptionFilterId">@L("PlantDescription")</label>
+									<input type="text" class="form-control" name="plantDescriptionFilter" id="PlantDescriptionFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ContractNoFilterId">@L("ContractNo")</label>
+									<input type="text" class="form-control" name="contractNoFilter" id="ContractNoFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                 <div class="form-group">
+									<label  for="MinSOBFilterId">@L("MinMax") @L("SOB")</label>
+									<div class="input-group">
+										<input type="number" class="form-control m-input" placeholder="@L("MinValue")" name="minSOBFilter" id="MinSOBFilterId"/>
+                                        <input type="number" class="form-control m-input" placeholder="@L("MaxValue")" name="maxSOBFilter"  id="MaxSOBFilterId"/>
+									</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                 <div class="form-group">
+									<label  for="MinEPUFilterId">@L("MinMax") @L("EPU")</label>
+									<div class="input-group">
+										<input type="number" class="form-control m-input" placeholder="@L("MinValue")" name="minEPUFilter" id="MinEPUFilterId"/>
+                                        <input type="number" class="form-control m-input" placeholder="@L("MaxValue")" name="maxEPUFilter"  id="MaxEPUFilterId"/>
+									</div>
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="StatusFilterId">@L("Status")</label>
+									<input type="text" class="form-control" name="statusFilter" id="StatusFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="form-group">
+										<label for="MinCreationTimeFilterId">@L("CreationTimeRange")</label>
+										<div class="input-group">
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MinValue")"  id="MinCreationTimeFilterId">
+											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MaxValue")"  id="MaxCreationTimeFilterId">
+										</div>
+									</div>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="form-group">
+										<label for="MinDeletionTimeFilterId">@L("DeletionTimeRange")</label>
+										<div class="input-group">
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MinValue")"  id="MinDeletionTimeFilterId">
+											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MaxValue")"  id="MaxDeletionTimeFilterId">
+										</div>
+									</div>
+                            </div>
+							<div class="col-md-3">
+								<label for="IsDeletedFilterId">@L("IsDeleted")</label>
+								<select class="form-control" name="IsDeletedFilter" id="IsDeletedFilterId">
+									<option value="-1">@L("All")</option>
+									<option value="0">@L("False")</option>
+									<option value="1">@L("True")</option>
+								</select>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="form-group">
+										<label for="MinLastModificationTimeFilterId">@L("LastModificationTimeRange")</label>
+										<div class="input-group">
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MinValue")"  id="MinLastModificationTimeFilterId">
+											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+											<input class="form-control m-input date-picker" type="text" placeholder="@L("MaxValue")"  id="MaxLastModificationTimeFilterId">
+										</div>
+									</div>
+                            </div>
+
+                </div>
+                <div class="row mb-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+	    </div>
+            <div class="align-items-center">
+                <table id="ProcureDatasTable" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>@L("Actions")</th>
+								<th>@L("PartNo")</th>
+								<th>@L("Description")</th>
+								<th>@L("SupplierCode")</th>
+								<th>@L("SuppliserName")</th>
+								<th>@L("CurrentExwPrice")</th>
+								<th>@L("PriceCurrency")</th>
+								<th>@L("Uom")</th>
+								<th>@L("Buyer")</th>
+								<th>@L("FromDate")</th>
+								<th>@L("ToDate")</th>
+								<th>@L("PackagingCost")</th>
+								<th>@L("LogisticsCost")</th>
+								<th>@L("PlantCode")</th>
+								<th>@L("PlantDescription")</th>
+								<th>@L("ContractNo")</th>
+								<th>@L("SOB")</th>
+								<th>@L("EPU")</th>
+								<th>@L("Status")</th>
+								<th>@L("CreationTime")</th>
+								<th>@L("DeletionTime")</th>
+								<th>@L("IsDeleted")</th>
+								<th>@L("LastModificationTime")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

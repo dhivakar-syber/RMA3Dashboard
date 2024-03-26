@@ -1,0 +1,31 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.IndexNames
+@model CreateOrEditIndexNameModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditIndexName")) : L("CreateNewIndexName")))
+
+<div class="modal-body">
+        <div id="IndexNameInformationsTab">
+            <form name="IndexNameInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.IndexName.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="IndexName_Name">@L("Name")</label>
+									<input class="form-control" id="IndexName_Name" value="@Model.IndexName.Name" type="text" name="name"  required  maxlength="@SyberGate.RMACT.Masters.IndexNameConsts.MaxNameLength"  minlength="@SyberGate.RMACT.Masters.IndexNameConsts.MinNameLength"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

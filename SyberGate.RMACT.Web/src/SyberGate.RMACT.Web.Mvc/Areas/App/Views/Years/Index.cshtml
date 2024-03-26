@@ -1,0 +1,68 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.Years
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model YearsViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.Years;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/Years/Index.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("Years")" description="@L("YearsHeaderInfo")">
+        
+
+        @if (IsGranted(AppPermissions.Pages_Administration_Years_Create))
+        {
+	<button id="CreateNewYearButton" class="btn btn-primary btn-sm">
+    		<i class="fa fa-plus"></i> @L("CreateNewYear")
+	</button>}
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+                        <div class="form-group align-items-center">
+                            <div class="input-group">
+                                <input type="text" id="YearsTableFilter" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                                <span class="input-group-btn">
+                                    <button id="GetYearsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						<div class="kt-separator kt-separator--border-dashed"></div>
+					</div>
+
+
+                </div>
+                <div class="row mb-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+	    </div>
+            <div class="align-items-center">
+                <table id="YearsTable" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>@L("Actions")</th>
+								<th>@L("Name")</th>
+                            <th>@L("SeqNo")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

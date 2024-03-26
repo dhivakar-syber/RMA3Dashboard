@@ -1,0 +1,87 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.SupportAttachments
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model SupportAttachmentsViewModel
+
+
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/A3Documents/_supportAttachments.js" asp-append-version="true"></script>
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(@L("SupportAttachmentList")))
+
+<div class="d-flex flex-column flex-column-fluid" id="kt_content" >
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    
+
+                    <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="kt-separator kt-separator--border-dashed"></div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="BuyerFilterId">@L("Buyer")</label>
+                                <input type="text" class="form-control" name="buyerFilter" id="BuyerFilterId" value="@Model.BuyerName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="a3FilterId">@L("A3Id")</label>
+                                <input type="text" class="form-control" name="buyerFilter" id="a3FilterId" value="@Model.A3Id">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="supplierFilterId">@L("Supplier")</label>
+                                <input type="text" class="form-control" name="buyerFilter" id="supplierFilterId" value="@Model.suppliername"  maxlength="200">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="versionFilterId">@L("Version")</label>
+                                <input type="text" class="form-control" name="buyerFilter" id="versionFilterId" value="@Model.version">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="align-items-center">
+                    <table id="SupportAttachments" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>@L("Action")</th>
+                                <th>@L("Buyer")</th>
+                                <th>@L("Supplier")</th>
+                                <th>@L("Version")</th>
+                                <th>@L("FileName")</th>
+                                
+                                
+                                
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    
+    <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">
+                    <span class="fileinput-button">
+                        <span>@L("Upload")</span>
+                        <input id="fileupload" type="file" name="files" accept=".xlsx, .xls, .csv">
+                    </span>
+                </a>
+</div>

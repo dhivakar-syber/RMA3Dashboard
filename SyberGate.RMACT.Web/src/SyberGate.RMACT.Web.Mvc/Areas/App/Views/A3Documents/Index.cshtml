@@ -1,0 +1,90 @@
+﻿@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.A3Documents
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model A3DocumentsViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.A3Documents;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/A3Documents/Index.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <abp-page-subheader title="@L("A3Documents")" description="@L("A3DocumentsHeaderInfo")">
+
+      
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+                        <div class="form-group align-items-center">
+                            <div class="input-group">
+                                <input type="text" id="A3DocumentsTableFilter" class="form-control m-input" placeholder="@L("SearchWithThreeDot")" value="@Model.FilterText">
+                                <span class="input-group-btn">
+                                    <button id="GetA3DocumentsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						<div class="kt-separator kt-separator--border-dashed"></div>
+					</div>
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="BuyerFilterId">@L("Buyer")</label>
+									<input type="text" class="form-control" name="buyerFilter" id="BuyerFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="SupplierFilterId">@L("Supplier")</label>
+									<input type="text" class="form-control" name="supplierFilter" id="SupplierFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="MonthFilterId">@L("Month")</label>
+									<input type="text" class="form-control" name="monthFilter" id="MonthFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="YearFilterId">@L("Year")</label>
+									<input type="text" class="form-control" name="yearFilter" id="YearFilterId">
+								</div>
+                            </div>
+
+                </div>
+                <div class="row mb-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+	    </div>
+            <div class="align-items-center">
+                <table id="A3DocumentsTable" class="table table-separate table-head-custom dataTable no-footer dtr-inline dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>@L("Actions")</th>
+                                <th>@L("Version")</th>
+								<th>@L("Buyer")</th>
+								<th>@L("Supplier")</th>
+								<th>@L("Month")</th>
+								<th>@L("Year")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

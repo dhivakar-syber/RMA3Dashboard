@@ -1,0 +1,26 @@
+@using SyberGate.RMACT.Masters
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.CommodityTrees
+@model CreateCommodityTreeModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("NewCommodityTree")))
+
+<div class="modal-body">
+    <form name="CommodityTreeForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="ParentId" value="@Model.ParentId" />
+        <div class="form-group">
+            <label for="DisplayName">@L("Name")</label>
+            <input id="DisplayName" class="form-control" type="text" name="DisplayName" required maxlength="@CommodityTree.MaxDisplayNameLength">
+        </div>
+        <div class="form-group">
+            <label for="IsLeaf" class="checkbox checkbox-outline col-lg-12">
+                <input id="IsLeaf" type="checkbox" name="IsLeaf" value="true" >
+                <span></span>
+                @L("CommodityIsLeaf")
+            </label>
+            <span class="form-text text-muted">@L("CommodityIsLeaf_Hint")</span>
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

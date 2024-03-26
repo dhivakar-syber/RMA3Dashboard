@@ -1,0 +1,40 @@
+﻿
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.RawMaterialIndexes
+@model RawMaterialIndexViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="RawMaterialIndexInformationsTab">
+        
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Month") :</h6>
+                @L("Enum_Months_" + (int)Model.RawMaterialIndex.Month)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Value") :</h6>
+                @Model.RawMaterialIndex.Value
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("IndexName")) @L("Name") :</h6>
+                @Model.IndexNameName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("Year")) @L("Name") :</h6>
+                @Model.YearName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("RawMaterialGrade")) @L("Name") :</h6>
+                @Model.RawMaterialGradeName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")
+

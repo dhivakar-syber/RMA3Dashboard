@@ -1,0 +1,51 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.PartBuckets
+@model CreateOrEditPartBucketModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditPartBucket")) : L("CreateNewPartBucket")))
+
+<div class="modal-body">
+        <div id="PartBucketInformationsTab">
+            <form name="PartBucketInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.PartBucket.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="PartBucket_RMSpec">@L("PartNumber")</label>
+									<input class="form-control" id="PartBucket_RMSpec" value="@Model.PartBucket.RMSpec" type="text" name="rmSpec" required maxlength="@SyberGate.RMACT.Masters.PartBucketConsts.MaxRMSpecLength" minlength="@SyberGate.RMACT.Masters.PartBucketConsts.MinRMSpecLength" />
+								</div>
+					
+								<div class="form-group">
+									<label for="PartBucket_Buckets">@L("Buckets")</label>
+									<input class="form-control" id="PartBucket_Buckets" value="@Model.PartBucket.Buckets" type="text" name="buckets"  required  maxlength="@SyberGate.RMACT.Masters.PartBucketConsts.MaxBucketsLength"  minlength="@SyberGate.RMACT.Masters.PartBucketConsts.MinBucketsLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="PartBucket_Value">@L("Value")</label>
+									<input class="form-control m-input" id="PartBucket_Value" value="@Model.PartBucket.Value.ToString(CultureInfo.InvariantCulture)" type="number" name="value"  min="@SyberGate.RMACT.Masters.PartBucketConsts.MinValueValue"  max="@SyberGate.RMACT.Masters.PartBucketConsts.MaxValueValue"/>
+								</div>
+					
+								<div class="form-group">
+									<label for="PartBucket_Buyer">@L("Buyer")</label>
+									<input class="form-control" id="PartBucket_Buyer" value="@Model.PartBucket.Buyer" type="text" name="buyer"   maxlength="@SyberGate.RMACT.Masters.PartBucketConsts.MaxBuyerLength"  minlength="@SyberGate.RMACT.Masters.PartBucketConsts.MinBuyerLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="PartBucket_Supplier">@L("Supplier")</label>
+									<input class="form-control" id="PartBucket_Supplier" value="@Model.PartBucket.Supplier" type="text" name="supplier"   maxlength="@SyberGate.RMACT.Masters.PartBucketConsts.MaxSupplierLength"  minlength="@SyberGate.RMACT.Masters.PartBucketConsts.MinSupplierLength"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

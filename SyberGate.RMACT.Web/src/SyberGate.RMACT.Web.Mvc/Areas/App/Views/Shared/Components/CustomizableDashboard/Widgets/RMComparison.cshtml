@@ -1,0 +1,134 @@
+﻿@using SyberGate.RMACT.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@{
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/morris.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/raphael.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.flot.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.waypoints.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.counterup.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/topojson.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.easypiechart.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/chartist.min.js");
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.3.0/echarts.min.js"></script>
+<div id="RMComparison" class="card card-custom RMComparisonContainer">
+    <div class="card-header align-items-center border-0 mt-4">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="font-weight-bolder text-dark" @* style="color: #00566A;" *@>Raw Material Rate Comparison</span>
+        </h3>
+
+        @* <button type="button" class="btn btn-sm btn-primary btn-elevate-hover btn-pill" id="rmcompsubmit">
+            Submit
+        </button> *@
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="rmcomp-year-filter-container" style="margin-top: 10px;">
+                <label for="rmcompselYear"><b @* style ="color: #00566A;" *@>Year Filter</b></label>
+                <div class="input-group">
+                    <select class="form-control" id="rmcompselYear">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="rmcomp-team-filter-container" style="margin-top: 10px;">
+                <label for="rmcompselTeams"><b @* style="color: #00566A;" *@>Team Filter</b></label>
+                <div class="input-group">
+                    <select class="form-control" id="rmcompselTeams">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="rmcomp-buyer-filter-container" style="margin-top: 10px;">
+                <label for="rmcompselBUyer"><b @* style ="color: #00566A;" *@>Buyer Filter</b></label>
+                <div class="input-group">
+                    <select class="form-control" id="rmcompselBUyer">
+                    </select>
+                </div>
+            </div>
+        </div>
+        @* <div class="col-md-3">
+            <div class="rmcomp-supplier-filter-container" style="margin-top: 10px;">
+                <label for="rmcompselSupplier"><b @* style="color: #00566A;" >Supplier Filter</b></label>
+                <div class="input-group">
+                    <select class="form-control" id="rmcompselSupplier">
+                    </select>
+                </div>
+            </div>
+        </div> *@
+        </div>
+        <div class="row">
+        <div class="col-md-3">
+            <div class="rmcomp-group-filter-container" style="margin-top: 10px;">
+                <label for="rmcompselGroup"><b @* style="color: #00566A;" *@>Group Filter</b></label>
+                <div class="input-group">
+                    <select class="form-control" id="rmcompselGroup">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="rmcomp-grade-filter-container" style="margin-top: 10px;">
+                <label for="rmcompselGrade"><b @* style="color: #00566A;" *@>Grade Filter</b></label>
+                <div class="input-group">
+                    <select class="form-control" id="rmcompselGrade">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="rmcomp-spec-filter-container" style="margin-top: 10px;">
+                <label for="rmcompselSpec"><b @* style="color: #00566A;" *@>Spec Filter</b></label>
+                <div class="input-group">
+                    <select class="form-control" id="rmcompselSpec">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row ChartContainer">
+        <div class="col-md-6">
+            <div class="card-body">
+                <canvas class="m_chart_RM_Comparison" id="m_chart_RM_Comparison" width="690" height="450"></canvas>
+            </div>
+        </div>
+        @* <div class="col-md-7" style="/* padding-left: 20px; */padding-right:10px;">
+                        <div class="card">
+                            <div style="font-weight: bold; font-size: 18px">
+                                RM Unit Rate Comparison By Buyer
+                            </div>
+                            <div class="chart-container" style="max-width: 760px; max-height: 650px;">
+                    <canvas class="chart" id="m_chart_RM_Comparison" width="760" height="650"></canvas>
+                            </div>
+                        </div>
+                    </div> *@
+        <div class="col-md-6">
+            <div id="category-1" class="card-body">
+                <div id="BWAPrice_Content" class="table-responsive">
+                    <div class="overflow-auto" style="height: 450px;padding-bottom:20px">
+                    <table id="BWAPrice_Content" class="table table-striped  table-head-solid table-bordered datatable">
+                        <thead style="position:sticky; top:0;">
+                            <tr>
+                                <th class="p-0" style="min-width: 100px" rowspan="2">Team</th>
+                                <th class="p-0" style="min-width: 100px" rowspan="2">Buyer</th>
+                                <th class="p-0" style="min-width: 100px" rowspan="2">Supplier</th>
+                                <th class="p-0" style="min-width: 100px" rowspan="2">Unit Rate Avg.</th>
+                                <th class="p-0" style="min-width: 100px" rowspan="2">Impact/Bleed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

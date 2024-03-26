@@ -1,0 +1,82 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Authorization
+@using SyberGate.RMACT.Web.Areas.App.Models.A3Documents
+@using SyberGate.RMACT.Web.Areas.App.Startup
+@model CreateOrEditA3DocumentViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.A3Documents;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/A3Documents/CreateOrEdit.js" asp-append-version="true"></script>
+}
+<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+ <div class="kt-subheader kt-grid__item">
+  <div class="@(await GetContainerClass())">
+    <div class="kt-subheader__main">
+        <h3 class="kt-subheader__title">
+            <span>@(Model.IsEditMode ? (L("EditA3Document")) : L("CreateNewA3Document"))</span>
+        </h3>
+        <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+        <div class="kt-subheader__breadcrumbs">
+            <a href="/App/A3Documents" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i>&thinsp;@L("A3Documents")</a>
+            <span class="kt-subheader__breadcrumbs-separator"></span>
+            <a href="javascript:;" class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
+               @(Model.IsEditMode ? (L("Edit")) : L("Create"))
+            </a>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="@(await GetContainerClass()) kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet kt-portlet--mobile">
+        <form name="A3DocumentInformationsForm" role="form" novalidate class="form-validation">
+            <div class="kt-portlet__body">
+                <div class="kt-form">
+                     <div id="A3DocumentInformationsTab">   
+                            @if (Model.IsEditMode)
+                            {
+                                <input type="hidden" name="id" value="@Model.A3Document.Id" />
+                            }
+
+				            
+
+				            
+								<div class="form-group">
+									<label for="A3Document_Buyer">@L("Buyer")</label>
+									<input class="form-control" id="A3Document_Buyer" value="@Model.A3Document.Buyer" type="text" name="buyer"  required    />
+								</div>
+					
+								<div class="form-group">
+									<label for="A3Document_Supplier">@L("Supplier")</label>
+									<input class="form-control" id="A3Document_Supplier" value="@Model.A3Document.Supplier" type="text" name="supplier"  required    />
+								</div>
+					
+								<div class="form-group">
+									<label for="A3Document_Month">@L("Month")</label>
+									<input class="form-control" id="A3Document_Month" value="@Model.A3Document.Month" type="text" name="month"  required    />
+								</div>
+					
+								<div class="form-group">
+									<label for="A3Document_Year">@L("Year")</label>
+									<input class="form-control" id="A3Document_Year" value="@Model.A3Document.Year" type="text" name="year"  required    />
+								</div>
+                                <div class="form-group">
+                                    <label for="A3Document_Year">@L("Remarks")</label>
+                                    <textarea class="form-control" id="A3Document_Remarks" rows="5" maxlength="250" type="text" name="remarks">@Model.A3Document.Remarks</textarea>
+                                </div>       
+                    </div>
+			    </div>            
+            </div>
+            <div class="kt-portlet__foot">
+			    <div class="row align-items-center">
+				    <div class="col-lg-12">
+					    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> @L("Save")</button>
+				    </div>
+			    </div>
+		    </div>
+         </form>
+    </div>
+  </div>
+</div>

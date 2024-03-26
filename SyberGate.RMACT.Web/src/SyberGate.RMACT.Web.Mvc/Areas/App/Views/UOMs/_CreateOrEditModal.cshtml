@@ -1,0 +1,36 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.UOMs
+@model CreateOrEditUOMModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditUOM")) : L("CreateNewUOM")))
+
+<div class="modal-body">
+        <div id="UOMInformationsTab">
+            <form name="UOMInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.UOM.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="UOM_Code">@L("Code")</label>
+									<input class="form-control" id="UOM_Code" value="@Model.UOM.Code" type="text" name="code"  required  maxlength="@SyberGate.RMACT.Masters.UOMConsts.MaxCodeLength"  minlength="@SyberGate.RMACT.Masters.UOMConsts.MinCodeLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="UOM_Description">@L("Description")</label>
+									<input class="form-control" id="UOM_Description" value="@Model.UOM.Description" type="text" name="description"  required  maxlength="@SyberGate.RMACT.Masters.UOMConsts.MaxDescriptionLength"  minlength="@SyberGate.RMACT.Masters.UOMConsts.MinDescriptionLength"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

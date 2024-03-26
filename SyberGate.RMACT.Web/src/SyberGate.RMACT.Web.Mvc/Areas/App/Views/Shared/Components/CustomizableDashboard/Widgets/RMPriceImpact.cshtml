@@ -1,0 +1,165 @@
+﻿@using SyberGate.RMACT.Web.Resources
+
+@inject IWebResourceManager WebResourceManager
+@{ WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/morris.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/raphael.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.flot.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.waypoints.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.counterup.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/topojson.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/jquery.easypiechart.min.js");
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Areas/App/Views/_Bundles/chartist.min.js"); }
+
+<div id="RMPriceImpact" class="card card-custom RMPriceImpactContainer h-100">
+    <div class="card-header align-items-center border-0 mt-4">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="font-weight-bolder text-dark">Raw Material Price Impact - Part Wise</span>
+            <small><i class=" p-0 m-0 fa fa-user"></i> Buyer : <span id="buyer1" class="text-dark"></span></small>
+            <small><i class=" p-0 m-0 fa fa-user"></i> Supplier : <span id="supplier1" class="text-dark"></span></small>
+           @* <small><i class=" p-0 m-0 fa fa-user"></i> Group : <span id="group1" class="text-dark"></span></small>*@
+            <small><i class=" p-0 m-0 fa fa-user"></i> Grade : <span id="grade1" class="text-dark"></span></small>
+            <small><i class=" p-0 m-0 fa fa-user"></i> Spec : <span id="spec1" class="text-dark"></span></small>
+            <small><i class=" p-0 m-0 fa fa-calendar"></i> Period / Version : <span id="dtrange1" class="text-dark"></span></small>
+            <small><i class=" p-0 m-0 fa fa-user"></i> Plant : <span id="plant1" class="text-dark"></span></small>
+        </h3>
+        <div class="card-toolbar">
+
+            <span class="switch switch-icon">
+                <label>
+                    <input type="checkbox" id="EditableCheckboxRmbreakup">
+                    <span></span>
+                </label>
+            </span>
+            <strong class="p-2 pt-4 dashboard-header-text-edit-mode">
+                @L("RMPriceBreakup")
+            </strong>
+
+            <button id="updateRMCostConversionButton" class="updateRMCostConversionButton btn btn-sm btn-primary btn-elevate-hover btn-pill">
+                <i class="flaticon2-refresh"></i>Update RM Conversion Cost
+            </button>
+            <button id="refresRMPriceImpactButton" class="refreshRMPriceImpactButton btn btn-outline-brand btn-sm btn-icon btn-icon-md">
+                <i class="flaticon2-refresh"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="RMPriceImpact_Content" class="table-responsive">
+            <table class="price-impact-table table table-striped  table-head-solid table-bordered dataTable dtfc-has-left stripe">
+                <thead>
+
+                    <tr>
+                        <th class="p-3" style="width: 10px" rowspan="2">Sl.No</th>
+                        <th class="p-3 dtfc-fixed-left" style="width: 50px; left: 0px; position: sticky;" rowspan="2">Part No</th>
+                        <th class="p-3" style="min-width: 175px" rowspan="2">Part Description</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Plant code</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">ES1</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">ES2</th>
+                        <th class="p-3" style="min-width: 125px" rowspan="2">RM Grade</th>
+                        <th class="p-3" style="min-width: 125px" rowspan="2">RM Spec</th>
+                        <th class="p-3" style="min-width: 50px" rowspan="2">Current RM Cost / Kg</th>
+
+                         @*BelowColumnsForRmBucket*@
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Base RM Rate</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">RM Surcharge(Grade Diff)</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Secondary Processing</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Surface Protection</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Thickness</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Cutting Cost</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">MOQ (Volume)</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Transport</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Others</th>
+                        
+                        @*AboveColumnsForRmBucket*@
+
+
+                        <th class="p-3" style="min-width: 50px" rowspan="2">Revised RM cost / Kg</th>
+
+                       
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Base RM Rate</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">RM Surcharge(Grade Diff)</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Secondary Processing</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Surface Protection</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Thickness</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Cutting Cost</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">MOQ (Volume)</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Transport</th>
+                        <th class="p-3-4" style="min-width: 50px" rowspan="2">Others</th>
+
+                    
+
+
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            Gross / Input Weight
+                            <span class="font-size-xs">(Kgs/Piece)</span>
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            Casting / Forging Weight
+                            <span class="font-size-xs">(Kgs/Piece)</span>
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            Finished Weight
+                            <span class="font-size-xs">(Kgs/Piece)</span>
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Scrap Recovery % <span class="font-size-xs">(Gross to Casting / Forging)</span></th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Scrap Recovery % <span class="font-size-xs">(Casting / Forging to Finished)</span></th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            Scrap Weight
+                            <span class="font-size-xs">(Kgs/Piece)</span>
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Current RM Cost / Piece in INR</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Revised RM Cost / Piece in INR</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            Other Cost /Piece in INR
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            "Current EXW Price /Piece
+                            in INR"
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            Revised EXW Price /Piece in INR
+                        </th>
+                        <th class="p-3" style="width: 50px" colspan="2">
+                            EXW Price Change
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Packaging Cost Per Piece in INR</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Logistics Cost Per Piece in INR</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Current FCA Price in INR</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Revised FCAPrice in INR</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            AVOB (Current)
+                            Mn INR
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            AVOB (Revised)
+                            Mn INR
+                        </th>
+
+                        <th class="p-3" style="width: 50px" rowspan="2">SOB</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">Globus EPU</th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            Total Impact
+                            (Mn INR)
+                        </th>
+                        <th class="p-3" style="width: 50px" rowspan="2">
+                            RM Reference
+                        </th>
+                        <th class="p-3-4" style="width: 50px" rowspan="2">
+                            RM Impact
+                            (Mn INR)
+                        </th>
+                        <th class="p-3-4" style="width: 50px" rowspan="2">
+                            Process Impact
+                            (Mn INR)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="p-3" style="width: 75px">Cost /Piece in INR</th>
+                        <th class="p-3" style="width: 75px">Percent(%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

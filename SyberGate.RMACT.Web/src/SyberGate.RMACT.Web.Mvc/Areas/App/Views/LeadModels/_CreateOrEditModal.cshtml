@@ -1,0 +1,36 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.LeadModels
+@model CreateOrEditLeadModelModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditLeadModel")) : L("CreateNewLeadModel")))
+
+<div class="modal-body">
+        <div id="LeadModelInformationsTab">
+            <form name="LeadModelInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.LeadModel.Id" />
+                }
+
+				
+
+				
+								<div class="form-group">
+									<label for="LeadModel_Name">@L("Name")</label>
+									<input class="form-control" id="LeadModel_Name" value="@Model.LeadModel.Name" type="text" name="name"  required  maxlength="@SyberGate.RMACT.Masters.LeadModelConsts.MaxNameLength"  minlength="@SyberGate.RMACT.Masters.LeadModelConsts.MinNameLength"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="LeadModel_Description">@L("Description")</label>
+									<input class="form-control" id="LeadModel_Description" value="@Model.LeadModel.Description" type="text" name="description"  required  maxlength="@SyberGate.RMACT.Masters.LeadModelConsts.MaxDescriptionLength"  minlength="@SyberGate.RMACT.Masters.LeadModelConsts.MinDescriptionLength"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

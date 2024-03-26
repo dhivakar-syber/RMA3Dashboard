@@ -1,0 +1,7 @@
+namespace SyberGate.RMACT.Install.Dto
+{
+    public class CheckDatabaseOutput
+    {
+        public bool IsDatabaseExist { get; set; }
+    }
+}

@@ -1,0 +1,124 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.RawMaterialMixtures
+@model CreateOrEditRawMaterialMixtureModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRawMaterialMixture")) : L("CreateNewRawMaterialMixture")))
+
+<div class="modal-body">
+        <div id="RawMaterialMixtureInformationsTab">
+            <form name="RawMaterialMixtureInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.RawMaterialMixture.Id" />
+                }
+
+                <div class="form-group m-form__group">
+                    <label for="SupplierName">@L("Supplier")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="SupplierName" name="supplierName" value="@Model.SupplierName" type="text" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" id="OpenSupplierLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearSupplierNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="RawMaterialMixture_SupplierId" value="@Model.RawMaterialMixture.SupplierId" type="text" name="supplierId" required hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="RawMaterialMixture_SupplierId" value="" type="text" name="supplierId" required hidden />
+                }
+
+
+                <div class="form-group m-form__group">
+                    <label for="BuyerName">@L("Buyer")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="BuyerName" name="buyerName" value="@Model.BuyerName" type="text" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" id="OpenBuyerLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearBuyerNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="RawMaterialMixture_BuyerId" value="@Model.RawMaterialMixture.BuyerId" type="text" name="buyerId" required hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="RawMaterialMixture_BuyerId" value="" type="text" name="buyerId" required hidden />
+                }
+
+                <div class="form-group m-form__group">
+                    <label for="RMGroupName">@L("ParentRMGradeName")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="RMGroupName" name="rmGroupName" value="@Model.RMGroupName" type="text" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" id="OpenRMGroupLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearRMGroupNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="RawMaterialMixture_RMGroupId" value="@Model.RawMaterialMixture.RMGroupId" type="text" name="rmGroupId" required hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="RawMaterialMixture_RMGroupId" value="" type="text" name="rmGroupId" required hidden />
+                }
+
+
+                <div class="form-group m-form__group">
+                    <label for="RawMaterialGradeName">@L("RawMaterialSpec")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="RawMaterialGradeName" name="rawMaterialGradeName" value="@Model.RawMaterialGradeName" type="text" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" id="OpenRawMaterialGradeLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearRawMaterialGradeNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="RawMaterialMixture_RawMaterialGradeId" value="@Model.RawMaterialMixture.RawMaterialGradeId" type="text" name="rawMaterialGradeId" required hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="RawMaterialMixture_RawMaterialGradeId" value="" type="text" name="rawMaterialGradeId" required hidden />
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

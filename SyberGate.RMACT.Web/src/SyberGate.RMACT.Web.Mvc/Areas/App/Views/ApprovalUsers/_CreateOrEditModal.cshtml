@@ -1,0 +1,60 @@
+﻿
+@using System.Globalization
+@using SyberGate.RMACT.Web.Areas.App.Models.Common.Modals
+@using SyberGate.RMACT.Web.Areas.App.Models.ApprovalUsers
+@model CreateOrEditApprovalUserModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditApprovalUser")) : L("CreateNewApprovalUser")))
+						
+<div class="modal-body">
+        <div id="ApprovalUserInformationsTab">
+            <form name="ApprovalUserInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.ApprovalUser.Id" />
+                }
+
+			
+
+				
+								<div class="form-group">
+									<label for="ApprovalUser_UserName">@L("UserName")</label>
+									<input class="form-control" id="ApprovalUser_UserName" value="@Model.ApprovalUser.UserName" type="text" name="userName"  required  maxlength="@SyberGate.RMACT.Masters.ApprovalUserConsts.MaxUserNameLength"  minlength="@SyberGate.RMACT.Masters.ApprovalUserConsts.MinUserNameLength"  />
+								</div>
+					
+								@*<div class="form-group">
+									<label for="ApprovalUser_Department">@L("Department")</label>
+									<input class="form-control" id="ApprovalUser_Department" value="@Model.ApprovalUser.Department" type="text" name="department"  required  maxlength="@SyberGate.RMACT.Masters.ApprovalUserConsts.MaxDepartmentLength"  minlength="@SyberGate.RMACT.Masters.ApprovalUserConsts.MinDepartmentLength"  />
+								</div>*@
+			@{
+				
+				var departments = new List<string> { "SectionHead", "CE", "Finance", "Commodity" };
+				var selectedDepartment = Model.ApprovalUser.Department;
+			}
+
+			<div class="form-group">
+    <label for="ApprovalUser_Department">@L("Department")</label>
+    <select class="form-control" id="ApprovalUser_Department" name="department" required>
+					<option value=@Model.ApprovalUser.Department>@Model.ApprovalUser.Department</option>
+         @foreach (var department in departments)
+        {
+            @if (department != selectedDepartment)
+            {
+                <option value="@department">@department</option>
+            }
+        }
+    </select>
+</div>
+					
+								<div class="form-group">
+									<label for="ApprovalUser_Email">@L("Email")</label>
+									<input class="form-control" id="ApprovalUser_Email" value="@Model.ApprovalUser.Email" type="text" name="email"  required  maxlength="@SyberGate.RMACT.Masters.ApprovalUserConsts.MaxEmailLength"  minlength="@SyberGate.RMACT.Masters.ApprovalUserConsts.MinEmailLength"  />
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
