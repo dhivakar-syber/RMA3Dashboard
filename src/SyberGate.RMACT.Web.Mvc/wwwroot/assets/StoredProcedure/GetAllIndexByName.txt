@@ -1,0 +1,29 @@
+sp_helptext GetAllIndexByName
+
+CREATE procedure GetAllIndexByName  
+@RMGrade varchar(255) null,  
+@IndexName varchar(255) null,  
+@Month varchar(255) null,  
+@Year varchar(255) null  
+AS  
+  
+  select i.Name IndexName, r.Name RMGrade, y.Name Year, t.monnam Month, rm.value RMIndexValue  
+  into #temp   
+  from RawMaterialIndexes rm   
+  inner join Years y on rm.YearId = y.Id  
+  inner join (select 0 monid, 'Jan' monnam union select 1 monid, 'Feb' monnam union select 2 monid, 'Mar' monam union select 3 monid, 'Arl' monnam union select 4 monid, 'May' monnam union select 5 monid, 'Jun' monnam   
+ union select 6 monid, 'Jul' monnam union select 7 monid, 'Aug' monnam union select 8 monid, 'Sep' monnam union select 9 monid, 'Oct' monnam union select 10 monid, 'Nov' monnam union select 11 monid, 'Dec' monnam) t  
+ on t.monid =rm.month  
+  inner join RawMaterialGrades r on r.Id = rm.rawmaterialgradeid  
+  inner join IndexNames i on i.id = rm.IndexNameId  
+  where i.Name = isnull(@IndexName, i.Name) and y.Name = isnull(@Year, y.Name) and r.Name = isnull(@RMGrade, r.Name) and t.monnam = isnull(@Month, t.monnam)  
+  
+   
+  select *  
+  from #temp  
+ pivot  
+ (  
+   max(RMIndexValue)  
+   for [Month] in (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec)  
+ ) piv  
+  

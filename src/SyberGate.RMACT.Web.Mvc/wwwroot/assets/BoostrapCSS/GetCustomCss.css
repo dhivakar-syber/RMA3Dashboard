@@ -1,0 +1,215 @@
+@font-face {
+    font-family: "corpS";
+    src: url("/assets/fonts/MBCorpoSText-Regular-Web.woff2") format("woff");
+}
+
+html,
+body {
+    font-family: corpS;
+}
+
+.bucket-color {
+    background-color: #C8C8C8 !important;
+}
+
+.btn.btn-primary {
+    color: #FFFFFF;
+    background-color: #71180C;
+    border-color: #71180C;
+}
+
+.bg-success {
+    background-color: #00677F !important;
+    color: white;
+}
+
+#BaseRMEditTable td {
+    padding: 0.15rem
+}
+
+.btn-reviserm .i {
+    font-size: 1rem;
+}
+
+.btn.btn-sm i,
+.btn-group-sm>.btn i {
+    font-size: 1rem;
+    padding-right: 0.35rem;
+}
+
+.btn.btn-sm-a,
+.btn-group-sm>.btn i {
+    font-size: .4rem;
+    padding-right: 0.35rem;
+}
+
+.table.table-head-solid thead th,
+.table.table-head-solid thead td {
+    background-color: #00566A;
+    color: white;
+    border-color: #e6e6e6;
+}
+
+.table.table-head-custom thead tr,
+.table.table-head-custom thead th {
+    font-weight: 600;
+    color: #B5B5C3 !important;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    background-color: #00566A;
+    padding-left: 10px !important;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: .75pt solid #4f4f50;
+    border-right: .75pt solid #4f4f50;
+    border-right-width: .75pt;
+}
+
+.table-bordered td {
+    border: .25pt solid #949495;
+}
+
+.danger-rmact {
+    color: #ffffff;
+    background-color: #71180C;
+}
+
+.danger1-rmact {
+    color: #ffffff;
+    background-color: #00566A;
+}
+
+.danger2-rmact {
+    color: #ffffff;
+    background-color: #707070;
+}
+
+.newdata {
+    background-color: rgb(255, 255, 0) !important;
+}
+
+body {
+    backdrop-filter: blur(30px);
+}
+
+#kt_header {
+    background-image: url("/Common/Images/rmact/img-header-brushed-bg-xs.jpg");
+    background-color: #ffffff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.topbar {
+    background-image: url(/Common/Images/rmact/img-header-brushed-bg-xs.jpg);
+}
+
+.note {
+    position: relative;
+}
+
+.note:after {
+    /* Magic Happens Here!!! */
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    display: block;
+    border-left: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid #71180C;
+}
+
+@media (min-width: 992px) {
+    .brand {
+        background-image: url("/Common/Images/rmact/img-header-brushed-bg-xs.jpg");
+        background-position-x: 270px;
+        background-color: #ffffff;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .brand .btn i {
+        color: #b4b8ce;
+    }
+    .brand .btn .svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #b4b8ce;
+    }
+    .brand .btn .svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+    }
+    .brand .btn:hover .svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #3699FF;
+    }
+    .brand .btn:hover .svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+    }
+    .brand .btn:hover i {
+        color: #3699FF;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .header-mobile {
+        background-image: url("/Common/Images/rmact/img-header-brushed-bg-xs.jpg");
+        background-color: #ffffff;
+        -webkit-box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.1);
+    }
+    .header-mobile .burger-icon span {
+        background-color: #b4b8ce;
+    }
+    .header-mobile .burger-icon span::before,
+    .header-mobile .burger-icon span::after {
+        background-color: #b4b8ce;
+    }
+    .header-mobile .burger-icon:hover span {
+        background-color: #3699FF;
+    }
+    .header-mobile .burger-icon:hover span::before,
+    .header-mobile .burger-icon:hover span::after {
+        background-color: #3699FF;
+    }
+    .header-mobile .burger-icon-active span {
+        background-color: #3699FF;
+    }
+    .header-mobile .burger-icon-active span::before,
+    .header-mobile .burger-icon-active span::after {
+        background-color: #3699FF;
+    }
+    .header-mobile .btn i {
+        color: #b4b8ce;
+    }
+    .header-mobile .btn .svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #b4b8ce;
+    }
+    .header-mobile .btn .svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+    }
+    .header-mobile .btn:hover .svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #3699FF;
+    }
+    .header-mobile .btn:hover .svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+    }
+    .header-mobile .btn:hover i {
+        color: #3699FF;
+    }
+}

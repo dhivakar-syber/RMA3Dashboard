@@ -1,0 +1,68 @@
+﻿@model SyberGate.RMACT.Web.Models.Account.EmailViewModel
+@using Abp.Json
+@using SyberGate.RMACT.Localization
+@using SyberGate.RMACT.Web.Security.Recaptcha
+@*@addTagHelper *, Owl.reCAPTCHA*@
+
+@section Scripts
+{
+
+
+    <script abp-src="/view-resources/Views/Account/emailapproval.js" asp-append-version="true"></script>
+    @*<script abp-src="/view-resources/Views/Account/EmailActivation.js" asp-append-version="true"></script>*@
+}
+
+
+<div style="background-color: #232323d1;" class="login-form2"  >
+    
+    <form style="background: #232323d1" class="form register-form" asp-action="emailapproval" method="post" >
+
+        
+
+        <div class="form-group" style="display: none ;background: #232323d1">
+            
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("A3id")" name="A3id" required value="@Model.A3Id" maxlength="@SyberGate.RMACT.Authorization.Users.User.MaxNameLength"/>
+        </div>
+        <div class="form-group " style="background: #232323d1">
+            <p>BuyerName</p>
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("BuyerName")" name="Buyername" required value="@Model.Buyername" maxlength="@SyberGate.RMACT.Authorization.Users.User.MaxSurnameLength"/>
+        </div>
+
+        <div class="form-group " style="background: #232323d1">
+            <p>SupplierName</p>
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("SupplierName")" name="Suppliername" required value="@Model.Suppliername" maxlength="@SyberGate.RMACT.Authorization.Users.User.MaxEmailAddressLength"/>
+        </div>
+        <div class="form-group " style="background: #232323d1">
+            <p>BuyerRemarks</p>
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("BuyerRemarks")" name="BuyerRemarks" required value="@Model.BuyerRemarks" maxlength="@SyberGate.RMACT.Authorization.Users.User.MaxSurnameLength"/>
+        </div>
+        <div class="form-group " style="background: #232323d1">
+            <p>Version</p>
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("Version")" name="Version" required value="@Model.Version" maxlength="@SyberGate.RMACT.Authorization.Users.User.MaxSurnameLength"/>
+        </div>
+       <div class="form-group" style="display: none ;background: #232323d1">
+        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("Token")" name="Token" required value="@Model.Token" maxlength="200" />
+        </div>
+
+        <div class="form-group" style="display: none ;background: #232323d1">
+        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("Sequence")" name="Sequence" required value="@(Model.Sequence.ToString().ToLower())" maxlength="@SyberGate.RMACT.Authorization.Users.User.MaxSurnameLength" />
+        </div>
+
+        <div class="form-group" style="display: none ;background: #232323d1">
+        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("Uid")" name="Uid" required value="@(Model.uid)" maxlength="@SyberGate.RMACT.Authorization.Users.User.MaxSurnameLength" />
+        </div>
+
+
+        <div class="form-group" style="background: #232323d1">
+         <p>Enter Remarks </p>
+        <textarea class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6"  type="text"  placeholder="@L("Remarks")" name="Remarks"   maxlength="200"  style="width:500px"required ></textarea>
+        </div>
+       
+
+        <div class="pb-lg-0 pb-5">
+            
+            <button type="submit" id="register-submit-btn" style="background: #5097AB" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3 " >@Model.Email</button>
+        </div>
+        <div id="success-message" style="display: none; color: green;">Successfully Updated</div>
+    </form>
+</div>

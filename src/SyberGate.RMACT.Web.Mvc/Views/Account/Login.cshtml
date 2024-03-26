@@ -1,0 +1,119 @@
+@using System.Globalization
+@using Abp.Extensions
+@using Abp.MultiTenancy
+@using SyberGate.RMACT.Identity
+@using SyberGate.RMACT.Localization
+@using SyberGate.RMACT.Web.Security.Recaptcha
+@using Owl.reCAPTCHA
+@addTagHelper *, Owl.reCAPTCHA
+@model SyberGate.RMACT.Web.Models.Account.LoginFormViewModel
+@inject SignInManager SignInManager
+
+@section Scripts
+{
+    @if (ViewBag.UseCaptcha)
+    {
+        <recaptcha-script-v3/>
+        <recaptcha-script-v3-js action="login" callback="(function(){$('#@RecaptchaValidator.RecaptchaResponseKey').val(token)})"/>
+    }
+    <script abp-src="/view-resources/Views/Account/Login.js" asp-append-version="true"></script>
+}
+
+@section Styles{
+    <link href="/metronic/common/css/login-1@(CultureHelper.IsRtl ? ".rtl" : "").css" rel="stylesheet"/>
+}
+
+@if (!Model.SuccessMessage.IsNullOrEmpty())
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.SuccessMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<!--begin::Signin-->
+<div class="login-form">
+    <div class="pb-5 pt-lg-0 pt-5">
+        <h5 class="font-weight-bolder text-dark font-size-h5">@L("LogIn")</h5>
+    </div>
+    <!--begin::Form-->
+    <form class="login-form form" asp-action="Login" method="post">
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
+        <input type="hidden" name="returnUrlHash"/>
+        <input type="hidden" name="ss" value="@ViewBag.SingleSignIn"/>
+        @if (ViewBag.UseCaptcha)
+        {
+            <input type="hidden" name="@RecaptchaValidator.RecaptchaResponseKey" id="@RecaptchaValidator.RecaptchaResponseKey"/>
+        }
+
+        <div class="form-group">
+            <input class="form-control form-control-solid h-auto py-3 px-3 rounded-lg" type="text" placeholder="@L("UserNameOrEmail")" name="usernameOrEmailAddress" autocomplete="new-password" value="@(Model.UserNameOrEmailAddress ?? "")" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control form-control-solid h-auto py-3 px-3 rounded-lg" type="password" placeholder="@L("Password")" name="password" autocomplete="new-password">
+        </div>
+
+        <div class="form-group d-flex justify-content-between mt-4">
+            <label class="checkbox checkbox-outline" style="color: #5097AB !important;">
+                <input type="checkbox" name="rememberMe" value="true">
+                <span>
+                </span>
+                @L("RememberMe")
+            </label>
+            <a href="@Url.Action("ForgotPassword", "Account")" id="forget-password" style="color: #5097AB !important;" class="text-primary font-weight-bolder text-hover-primary">@L("ForgotPassword")</a>
+        </div>
+
+        <!--begin::Action-->
+        <div class="pb-lg-0 pb-2">
+            <button type="button" id="kt_login_signin_submit" style="background-color: #ffffff8c !important;" class="btn btn-block btn-secondary font-weight-bolder font-size-h6 px-3 py-3 my-3 mr-3">@L("LogIn")</button>
+        </div>
+
+        <!--end::Action-->
+    </form>
+
+    <!--end::Form-->
+
+    <!--begin::Options-->
+    @{
+        var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync())
+            .Where(s => !s.DisplayName.IsNullOrWhiteSpace())
+            .ToList();
+
+        Func<string, string> getSocialIconClass = (provider) =>
+        {
+            provider = provider.ToLower(CultureInfo.InvariantCulture);
+            return provider;
+        };
+    }
+
+    @if ((AbpSession.MultiTenancySide != MultiTenancySides.Host || !ViewBag.IsMultiTenancyEnabled) && loginProviders.Count > 0)
+    {
+        <!--begin::Divider-->
+        <div class="divider mt-10 mb-2">
+            <div class="divider">
+                <span>@L("LoginWith")</span>
+            </div>
+        </div>
+
+        <!--end::Divider-->
+        <div class="pb-lg-0 pb-5 external-logins">
+            <form asp-action="ExternalLogin" method="post">
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
+                <input type="hidden" name="provider" value=""/>
+                <input type="hidden" name="ss" value="@ViewBag.SingleSignIn"/>
+
+                @foreach (var p in loginProviders)
+                {
+                    <a href="javascript:;" data-provider="@p.DisplayName" class="btn btn-sm btn-light-primary font-weight-bolder py-2 social-login-icon">
+                        <i class="fab fa-@getSocialIconClass(p.DisplayName)"></i>
+                        @p.DisplayName
+                    </a>
+                }
+            </form>
+        </div>
+    }
+    <!--end::Options-->
+</div>

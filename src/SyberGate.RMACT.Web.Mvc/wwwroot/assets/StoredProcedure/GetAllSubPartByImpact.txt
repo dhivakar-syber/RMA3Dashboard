@@ -1,0 +1,120 @@
+sp_helptext GetAllSubPartByImpact
+
+  
+CREATE procedure GetAllSubPartByImpact  
+@SupplierId varchar(255) null,  
+@BuyerId varchar(255) null,  
+@Period varchar(255) null,  
+@PartNo varchar(255) null,  
+@IsGenerateA3 bit,  
+@A3Id int null,  
+@Plant varchar(255) null,  
+@GroupId varchar(255) null  
+AS  
+  
+--drop table #temp  
+create table #tempsubPart ([Id] [int] IDENTITY(1,1) NOT NULL,  
+ [ParentPartNo] [nvarchar](255) NULL,  
+ [PartNo] [nvarchar](255) NULL,  
+ [Description] [nvarchar](255) NOT NULL,  
+ [ES1] [nvarchar](255) NULL,  
+ [ES2] [nvarchar](255) NULL,  
+ [RawMaterialGrade] [nvarchar](255) NULL,  
+ [GrossInputWeight] [decimal](18, 5) NULL,  
+ [CastingForgingWeight] [decimal](18, 5) NULL,  
+ [FinishedWeight] [decimal](18, 5) NULL,  
+ [ScrapRecovery] [decimal](18, 5) NULL,  
+ [ScrapRecoveryPercent] [float] NULL,  
+ [ScrapWeight] [decimal](18, 5) NULL,  
+ [SetteledUnitRate] [decimal](18, 5) NULL,  
+ [RevisedUnitRate] [decimal](18, 5) NULL,  
+ [ScrapRateSetteled] [decimal](18, 5) NULL,  
+ [ScrapRateRevised] [decimal](18, 5) NULL,  
+ [CurrentRMCost] [decimal](18, 5) NULL,  
+ [RevisedRMCost] [decimal](18, 5) NULL,  
+ [OtherCost] [decimal](18, 5) NULL,  
+ [CurrentExwPrice] [decimal](18, 5) NULL,  
+ [RevisedExwPrice] [decimal](18, 5) NULL,  
+ [ExwPriceChangeInCost] [decimal](18, 5) NULL,  
+ [ExwPriceChangeInPer] [decimal](18, 5) NULL,  
+ [PackagingCost] [decimal](18, 5) NULL,  
+ [LogisticsCost] [decimal](18, 5) NULL,  
+ [CurrentFCAPrice] [decimal](18, 5) NULL,  
+ [RevisedFCAPrice] [decimal](18, 5) NULL,  
+ [CurrentAVOB] [decimal](18, 5) NULL,  
+ [RevisedAVOB] [decimal](18, 5) NULL,  
+ [PlantCode] [nvarchar](255) NULL,  
+ [SOB] [varchar](10) NULL,  
+ [GlobusEPU] [decimal](18, 5) NULL,  
+ [RMImpact] [decimal](18, 6) NULL,  
+ [SupplierId] [int] NULL,  
+ [BuyerId] [int] NULL,  
+ [IsParent] [Bit],  
+ [RMGrade] [nvarchar](255) NULL,  
+ [ConversionCost] [decimal](18, 6) NULL,  
+ [RMRerfPrice] [decimal](18, 6) NULL,  
+ [CurrentCostPer] [decimal](18, 6) NULL,  
+ [RevisedCostPer] [decimal](18, 6) NULL,  
+ [RMReference] [nvarchar](255) NULL  
+ )  
+  
+declare @startdate date  
+declare @enddate date  
+set @startdate = convert(date,convert(varchar, SUBSTRING(@Period, 1, 10) , 101),101)  
+set @enddate = convert(date,convert(varchar, SUBSTRING(@Period, 13, 11) , 101),101)  
+  
+insert #tempsubPart ([ParentPartNo], [PartNo], [Description], [ES1], [ES2],  [RawMaterialGrade], [GrossInputWeight], [CastingForgingWeight], [FinishedWeight], [ScrapRecoveryPercent], [SetteledUnitRate], [RevisedUnitRate], [ScrapRateSetteled],  
+ [ScrapRateRevised], [CurrentExwPrice], [PackagingCost], [LogisticsCost], [PlantCode], [SOB], [GlobusEPU], [BuyerId], [SupplierId], [IsParent], RMGrade, [ConversionCost], [RMRerfPrice], [CurrentCostPer], [RevisedCostPer], [RMReference])  
+select p.ParentPartNo, p.PartNo, p.Description, gd.ES1, gd.ES2, g.Name RawMaterialGrade, p.GrossInputWeight, p.CastingForgingWeight, p.FinishedWeight, p.ScrapRecoveryPercent, br.SetteledUnitRate, br.RevisedUnitRate, br.SetteledScrapPer,   
+br.RevisedScrapPer, gd.CurrentExwPrice, isnull(gd.PackagingCost,0), isnull(gd.LogisticsCost,0), gd.PlantCode, cast(gd.SOB as float), gd.EPU, p.BuyerId, p.SupplierId, 0, grd.Name RMGrade,  
+ISNULL(p.ConversionCost,0), ISNULL(p.RMReferenceCost,0), 0, 0, p.RMReference  
+from SubParts p   
+left outer join RawMaterialGrades g on g.id = p.RMGroupid  
+left outer join RawMaterialGrades grd on grd.Id = p.RMGradeId  
+left outer join vw_RMTrend br on br.Id = (select top 1 (b.Id) from vw_rmtrend b where br.rmgroupid = b.rmgroupid and b.BuyerId = br.BuyerId and b.SupplierId = br.SupplierId  
+ and ((b.reviseddate >= @startdate and b.reviseddate <= @enddate) or (b.reviseddate <= @startdate and b.reviseddate <= @enddate)) order by b.reviseddate desc)   
+ and g.id = br.rmgroupid and p.BuyerId = br.buyerid and p.SupplierId = br.SupplierId  
+left outer join GlobusData gd on gd.PartNo = p.PartNo and gd.Id =   
+ (select top 1 d.Id from GlobusData d where d.PartNo = gd.PartNo and d.Status in ('Auto Confirmed', 'Released', 'Confirmed')   
+  and (d.FromDate < @startdate or d.FromDate < @enddate) --and (d.ToDate >= @startdate or d.ToDate >= @enddate)  
+ and d.BuyerId = gd.BuyerId and gd.SupplierId = d.SupplierId and gd.PlantCode = d.PlantCode order by FromDate desc) and gd.PlantCode = @Plant and p.BuyerId = gd.BuyerId and gd.SupplierId = p.SupplierId  
+where p.BuyerId = @BuyerId and p.SupplierId = @SupplierId and p.ParentPartNo = @PartNo   
+ and case when isnull(@GroupId, 0) = 0 then 1 else @GroupId end = case when isnull(@GroupId, 0) = 0 then 1 else g.Id end  
+  
+update t set t.RevisedUnitRate = RevisedUnitRate + ConversionCost, t.SetteledUnitRate = t.SetteledUnitRate + ConversionCost, t.CurrentCostPer = t.SetteledUnitRate + ConversionCost, t.RevisedCostPer = RevisedUnitRate + ConversionCost   from #tempsubPart t 
+  
+  
+update #tempsubPart set [ScrapRecovery] = isnull([CastingForgingWeight],0) - isnull([FinishedWeight],0)  
+update #tempsubPart set [ScrapWeight] = isnull([ScrapRecovery],0) * isnull([ScrapRecoveryPercent],0)  
+update #tempsubPart set [CurrentRMCost] = Round((isnull([GrossInputWeight],0) * isnull([SetteledUnitRate],0)) - (isnull([ScrapRateSetteled],0) * isnull([ScrapRecovery],0) * isnull([ScrapRecoveryPercent],0)),2),  
+ [RevisedRMCost] = Round((isnull([RevisedUnitRate],0) * isnull([GrossInputWeight],0)) - (isnull([ScrapRateRevised],0) * isnull([ScrapWeight],0)),2)  
+update #tempsubPart set [OtherCost] = isnull([CurrentExwPrice],0) - isnull([CurrentRMCost],0)  
+update #tempsubPart set [RevisedExwPrice] = ROUND(isnull([RevisedRMCost],0) + isnull([OtherCost],0),2)  
+update #tempsubPart set [ExwPriceChangeInCost] = [RevisedExwPrice] - isnull([CurrentExwPrice],0)  
+update #tempsubPart set [ExwPriceChangeInPer] = case when isnull([CurrentExwPrice],0) = 0 then 0 else [ExwPriceChangeInCost] / [CurrentExwPrice] * 100 end  
+update #tempsubPart set [CurrentFCAPrice] = isnull([CurrentExwPrice],0) + [PackagingCost] + [LogisticsCost], [RevisedFCAPrice] = [RevisedExwPrice] + [PackagingCost] + [LogisticsCost]  
+update #tempsubPart set [CurrentAVOB] = ([CurrentFCAPrice] * [GlobusEPU] * cast([SOB] as float)) / power(10,6)  
+update #tempsubPart set [RevisedAVOB] = ([RevisedFCAPrice] * [GlobusEPU] * cast([SOB] as float)) / power(10,6)  
+update #tempsubPart set [RMImpact] = [GlobusEPU] * [ExwPriceChangeInCost] * cast([SOB] as float) / power(10,6)  
+update #tempsubPart set [CurrentExwPrice] = isnull([CurrentExwPrice],0)  
+update #tempsubPart set [RawMaterialGrade] = isnull([RawMaterialGrade],'')  
+update #tempsubPart set [SetteledUnitRate] = isnull(SetteledUnitRate, 0)  
+update #tempsubPart set RevisedUnitRate = isnull(RevisedUnitRate, 0)  
+update #tempsubPart set ScrapRateSetteled = isnull(ScrapRateSetteled, 0)  
+update #tempsubPart set ScrapRateSetteled = isnull(ScrapRateSetteled, 0)  
+update #tempsubPart set CurrentAVOB = isnull(CurrentAVOB, 0)  
+update #tempsubPart set RevisedAVOB = isnull(RevisedAVOB, 0)  
+update #tempsubPart set SOB = isnull(SOB, 0)  
+update #tempsubPart set PlantCode = isnull(PlantCode, '')  
+update #tempsubPart set GlobusEPU = isnull(GlobusEPU, 0)  
+update #tempsubPart set RMImpact = isnull(RMImpact, 0), CurrentCostPer  = isnull(CurrentCostPer,0), RevisedCostPer = isnull(RevisedCostPer,0), ES1 = isnull(ES1, ''), ES2 = isnull(ES2, '')  
+  
+if (@IsGenerateA3 = 1)  
+ insert into A3SubPartImpacts (DocId, slno, PartNo, RawMaterialGrade, Description, GrossInputWeight, CastingForgingWeight, FinishedWeight, ScrapRecovery,  
+  ScrapRecoveryPercent, ScrapWeight, CurrentRMCost, RevisedRMCost, OtherCost, CurrentExwPrice, RevisedExwPrice, ExwPriceChangeInCost, ExwPriceChangeInPer, PackagingCost, LogisticsCost,  
+  CurrentFCAPrice, RevisedFCAPrice, CurrentAVOB, RevisedAVOB, PlantCode, SOB, GlobusEPU, RMImpact, IsParent, ParentPartNo, ConversionCost, CurrentCostPer, RevisedCostPer, ES1, ES2)   
+ select @A3Id, 1, [PartNo],   [RMGrade], [Description], [GrossInputWeight], [CastingForgingWeight], [FinishedWeight], [ScrapRecovery], [ScrapRecoveryPercent], ScrapWeight,   
+  CurrentRMCost, RevisedRMCost, OtherCost, CurrentExwPrice, RevisedExwPrice, ExwPriceChangeInCost, ExwPriceChangeInPer, PackagingCost, LogisticsCost, CurrentFCAPrice, RevisedFCAPrice,   
+  CurrentAVOB, RevisedAVOB, PlantCode, SOB, GlobusEPU, RMImpact, IsParent, [ParentPartNo], ConversionCost, [CurrentCostPer], [RevisedCostPer], [ES1], [ES2] from #tempsubPart  
+  
+select * from #tempsubPart   
